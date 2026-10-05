@@ -22,7 +22,7 @@
   --accent:#2B6A33; --accent-ink:#FFFFFF; --accent-soft:#DAEBD5;
   --mark:#F7D84A; --mark-ink:#2A2300; --mark-soft:#FDF3C4;
   --bar-off:#B6C4B0; --focus:#0E3F17; --scrim:rgba(12,20,14,.48);
-  --ok:#1E7A47; --warn:#8A5A00; --warn-soft:#FAEDCC; --bad:#A8342A; --bad-soft:#F6DDD8;
+  --ok:#1E7A47; --warn:#8A5A00; --warn-soft:#FAEDCC; --bad:#A8342A; --bad-soft:#F6DDD8; --info:#1F5E96; --info-soft:#DDE9F6; --code-bg:#E9EEE5;
   --f-display:'Black Han Sans','IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --f-body:'IBM Plex Sans KR',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
 }
@@ -31,14 +31,14 @@
   --accent:#7DC482; --accent-ink:#0C1A0E; --accent-soft:#1F3A24;
   --mark:#E9C83B; --mark-ink:#1C1600; --mark-soft:#3A3315;
   --bar-off:#3D4C40; --focus:#E9C83B; --scrim:rgba(0,0,0,.6);
-  --ok:#6FCF97; --warn:#E6B44F; --warn-soft:#3A2F14; --bad:#F08476; --bad-soft:#3F2220;
+  --ok:#6FCF97; --warn:#E6B44F; --warn-soft:#3A2F14; --bad:#F08476; --bad-soft:#3F2220; --info:#8DBDEB; --info-soft:#1C2C3D; --code-bg:#0E130F;
   color-scheme:dark }}
 :root[data-theme="dark"]{
   --bg:#111712; --surface:#192019; --surface-2:#222B23; --ink:#E9F0E6; --ink-2:#A7B7AA; --line:#344236;
   --accent:#7DC482; --accent-ink:#0C1A0E; --accent-soft:#1F3A24;
   --mark:#E9C83B; --mark-ink:#1C1600; --mark-soft:#3A3315;
   --bar-off:#3D4C40; --focus:#E9C83B; --scrim:rgba(0,0,0,.6);
-  --ok:#6FCF97; --warn:#E6B44F; --warn-soft:#3A2F14; --bad:#F08476; --bad-soft:#3F2220;
+  --ok:#6FCF97; --warn:#E6B44F; --warn-soft:#3A2F14; --bad:#F08476; --bad-soft:#3F2220; --info:#8DBDEB; --info-soft:#1C2C3D; --code-bg:#0E130F;
   color-scheme:dark }
 
 *{box-sizing:border-box}
@@ -53,7 +53,7 @@ p{margin:0}
 
 /* ---------- 메뉴 ---------- */
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);
-  display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+  display:grid;grid-template-columns:repeat(6,1fr);gap:2px;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
 .nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:58px;padding:6px 2px;border-radius:12px;
   text-decoration:none;color:var(--ink-2);font-size:13.5px;font-weight:600;white-space:nowrap}
 .nav a svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -102,6 +102,7 @@ body.has-savebar .wrap{padding-bottom:calc(200px + env(safe-area-inset-bottom,0p
 .p-new{background:var(--warn-soft);color:var(--warn)}
 .p-paid{background:var(--accent-soft);color:var(--accent)}
 .p-done{background:var(--surface-2);color:var(--ink-2)}
+.p-ship{background:var(--info-soft);color:var(--info)}
 .c-yes{background:var(--accent-soft);color:var(--accent)}
 .c-unk{background:var(--surface-2);color:var(--ink-2)}
 .c-no{background:var(--bad-soft);color:var(--bad)}
@@ -331,6 +332,73 @@ body.has-savebar .toast{bottom:calc(180px + env(safe-area-inset-bottom,0px))}
 @media (prefers-reduced-motion:reduce){.flash{animation:none}*{scroll-behavior:auto!important}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+/* ---------- 메뉴 이름 (짧은 이름은 좁은 화면에서) ---------- */
+.nav .ls{display:none}
+@media (max-width:520px){.nav .ll{display:none}.nav .ls{display:inline}.nav a{font-size:14px}}
+
+/* ---------- 배송 ---------- */
+.mode{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;font-size:15px;font-weight:700;background:var(--info-soft);color:var(--info);justify-self:start}
+.mode i{width:9px;height:9px;border-radius:50%;background:currentColor}
+.mode.live{background:var(--accent-soft);color:var(--accent)}
+.stat-row{display:grid;gap:12px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.stat{display:grid;gap:0;padding:14px 16px;border-radius:16px;border:2px solid var(--line);background:var(--surface);text-align:left;cursor:pointer}
+.stat:hover{border-color:var(--ink-2)}
+.stat .k{font-size:15.5px;font-weight:700;color:var(--ink-2);line-height:1.35}
+.stat .v{font-family:var(--f-display);font-size:38px;line-height:1.15;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:20px}
+.stat.attn{border-color:var(--mark);background:var(--mark-soft)}
+.lookup{display:grid;gap:12px;grid-template-columns:220px minmax(0,1fr) auto;align-items:end}
+select.inp{appearance:none;-webkit-appearance:none;padding-right:44px;background-image:linear-gradient(45deg,transparent 50%,var(--ink-2) 50%),linear-gradient(135deg,var(--ink-2) 50%,transparent 50%);background-position:calc(100% - 22px) 50%,calc(100% - 16px) 50%;background-size:6px 6px,6px 6px;background-repeat:no-repeat;font-size:19px}
+.samples{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.samples .chip{min-height:44px;font-size:15.5px;font-variant-numeric:tabular-nums}
+.track{display:grid;gap:16px;padding:18px;border-radius:16px;border:2px solid var(--line);background:var(--surface)}
+.track-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.track-top h3{font-size:21px}
+.track-top .num{color:var(--ink-2);font-size:16px}
+.big-status{font-family:var(--f-display);font-size:34px;line-height:1.15}
+.big-status.done{color:var(--accent)}
+.big-status.go{color:var(--info)}
+.big-status.bad{color:var(--bad)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;list-style:none;margin:0;padding:0}
+.steps li{display:grid;gap:6px;font-size:15px;font-weight:700;color:var(--ink-2);text-align:center;line-height:1.3}
+.steps li::before{content:"";height:10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line)}
+.steps li.on{color:var(--ink)}
+.steps li.on::before{background:var(--accent);border-color:var(--accent)}
+.steps li.now::before{background:var(--info);border-color:var(--info)}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.tl li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:12px;padding-bottom:14px;position:relative}
+.tl li::before{content:"";width:12px;height:12px;border-radius:50%;margin-top:7px;margin-left:3px;background:var(--line)}
+.tl li::after{content:"";position:absolute;left:8px;top:22px;bottom:2px;width:2px;background:var(--line)}
+.tl li:last-child::after{display:none}
+.tl li:first-child::before{background:var(--info);box-shadow:0 0 0 4px var(--info-soft)}
+.tl li.done:first-child::before{background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.tl b{font-size:17.5px}
+.tl .w{color:var(--ink-2);font-size:15.5px;font-variant-numeric:tabular-nums}
+.slist{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.slist > li{border-top:1px solid var(--line)}
+.slist > li:first-child{border-top:0}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;width:100%;padding:14px 4px;background:none;border:0;text-align:left;cursor:pointer;border-radius:10px;align-items:center}
+.srow:hover{background:var(--surface-2)}
+.srow .nm{font-weight:700;font-size:19px}
+.srow .meta{color:var(--ink-2);font-size:15.5px;font-variant-numeric:tabular-nums}
+.srow .last{grid-column:1/-1;font-size:15.5px}
+.srow .pill{justify-self:end}
+.wait{display:grid;gap:10px;padding:14px 4px}
+.wait .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.wait .top b{font-size:19px}
+.wait-form{display:grid;gap:8px;grid-template-columns:170px minmax(0,1fr) auto auto}
+.wait-form .inp{min-height:52px;font-size:18px}
+.wait-form .btn{min-height:52px}
+.code{margin:0;padding:14px 16px;border-radius:12px;background:var(--code-bg);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.55;overflow-x:auto;white-space:pre;word-break:normal;overflow-wrap:normal}
+.dev summary{cursor:pointer;font-weight:700;font-size:19px;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px}
+.dev summary::-webkit-details-marker{display:none}
+.dev summary::before{content:"+";display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--surface-2);font-size:22px}
+.dev[open] summary::before{content:"−"}
+.dev .lab{margin-top:14px;margin-bottom:6px}
+@media (max-width:900px){.stat-row{grid-template-columns:1fr 1fr}.lookup{grid-template-columns:1fr}.wait-form{grid-template-columns:1fr 1fr}.wait-form .inp{grid-column:1/-1}}
+@media (max-width:640px){#sh-samples{flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding-inline:16px;padding-bottom:4px;scrollbar-width:none}#sh-samples::-webkit-scrollbar{display:none}#sh-samples .chip,#sh-samples span{flex:none}}
+@media (max-width:640px){.stat{padding:12px}.stat .v{font-size:30px}.stat .k{font-size:14.5px}.big-status{font-size:28px}.steps li{font-size:13.5px}.track{padding:14px}.code{font-size:12.5px}}
+
 /* ---------- 휴대폰 ---------- */
 .view > *,.home-grid > *,.order-grid > *,.send-grid > *,.send-grid > * > *,.hello > *{min-width:0}
 .chart svg.narrow{min-width:0}
@@ -414,11 +482,12 @@ body.has-savebar .toast{bottom:calc(180px + env(safe-area-inset-bottom,0px))}
 
 <nav class="nav" aria-label="메뉴">
   <div class="brand"><div class="brand-name">해남농원</div><div class="brand-sub">주문장부</div></div>
-  <a href="#home" data-tab="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>오늘</a>
-  <a href="#order" data-tab="order"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></svg>주문 적기</a>
-  <a href="#ledger" data-tab="ledger"><svg viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 2-2h12v15H7a2 2 0 0 0-2 2z"/><path d="M5 20a2 2 0 0 0 2 1h12v-3"/><path d="M9 8h6M9 11h6"/></svg>장부</a>
-  <a href="#customers" data-tab="customers"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.5.2 4.3 1.9 5 5"/></svg>손님</a>
-  <a href="#send" data-tab="send"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-7 18-3-7z"/><path d="M11 14l4-4"/></svg>안내 보내기</a>
+  <a href="#home" data-tab="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span class="ll">오늘</span><span class="ls">오늘</span></a>
+  <a href="#order" data-tab="order"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></svg><span class="ll">주문 적기</span><span class="ls">주문</span></a>
+  <a href="#ledger" data-tab="ledger"><svg viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 2-2h12v15H7a2 2 0 0 0-2 2z"/><path d="M5 20a2 2 0 0 0 2 1h12v-3"/><path d="M9 8h6M9 11h6"/></svg><span class="ll">장부</span><span class="ls">장부</span></a>
+  <a href="#ship" data-tab="ship"><svg viewBox="0 0 24 24"><path d="M2.5 6.5h11v10h-11z"/><path d="M13.5 9.5h4l3.5 3.5v3.5h-7.5"/><circle cx="6.5" cy="17.5" r="1.9"/><circle cx="17" cy="17.5" r="1.9"/></svg><span class="ll">배송</span><span class="ls">배송</span></a>
+  <a href="#customers" data-tab="customers"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.5.2 4.3 1.9 5 5"/></svg><span class="ll">손님</span><span class="ls">손님</span></a>
+  <a href="#send" data-tab="send"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-7 18-3-7z"/><path d="M11 14l4-4"/></svg><span class="ll">안내 보내기</span><span class="ls">안내</span></a>
 </nav>
 
 <div class="shell">
@@ -430,6 +499,7 @@ body.has-savebar .toast{bottom:calc(180px + env(safe-area-inset-bottom,0px))}
     <section id="v-home" class="view" aria-label="오늘"></section>
     <section id="v-order" class="view" aria-label="주문 적기" hidden></section>
     <section id="v-ledger" class="view" aria-label="장부" hidden></section>
+    <section id="v-ship" class="view" aria-label="배송" hidden></section>
     <section id="v-customers" class="view" aria-label="손님" hidden></section>
     <section id="v-send" class="view" aria-label="안내 보내기" hidden></section>
   </main>
@@ -560,6 +630,108 @@ function placeSeason(c, year){
 })();
 const CM = new Map(); customers.forEach(c => CM.set(c.id, c));
 
+/* ================= 택배 조회 (deliveryapi.co.kr 응답 형식) ================= */
+// 실제 조회: API 키를 숨겨 주는 서버 주소를 넣으면 시연 모드 대신 실제 택배 API를 부릅니다.
+// 예) const TRACKING_PROXY = 'https://haenam-tracking.아이디.workers.dev';  (worker/tracking-proxy.js 참고)
+const TRACKING_PROXY = '';
+const COURIERS = [['cj','CJ대한통운'],['post','우체국택배'],['hanjin','한진택배'],['lotte','롯데택배'],['logen','로젠택배'],['kyungdong','경동택배'],['daesin','대신택배'],['hapdong','합동택배'],['chunil','천일택배'],['coupang','쿠팡'],['cupost','CU 편의점택배'],['gspostbox','GS Postbox 택배']];
+const CN = {}; COURIERS.forEach(([k, n]) => CN[k] = n);
+const shortCN = k => k === 'cj' ? 'CJ' : k === 'post' ? '우체국' : (CN[k] || k);
+const STAGES = ['REGISTERED','IN_TRANSIT','OUT_FOR_DELIVERY','DELIVERED'];
+const STAGE_TEXT = { PENDING:'접수 대기', REGISTERED:'집화 완료', IN_TRANSIT:'이동 중', OUT_FOR_DELIVERY:'배송 출발', DELIVERED:'배송 완료', FAILED:'배송 실패', RETURNED:'반송', CANCELLED:'취소' };
+const R2 = mulberry32(5150);
+const usedTrack = new Set();
+function genTrack(courier){ let n; do { n = courier === 'post' ? '6' + String(Math.floor(R2() * 1e12)).padStart(12, '0') : '5' + String(Math.floor(R2() * 1e11)).padStart(11, '0'); } while (usedTrack.has(n)); usedTrack.add(n); return n; }
+const dayAdd = (s, n) => iso(new Date(parseISO(s).getTime() + n * 864e5));
+const deliveredOn = o => dayAdd(o.track.shipped, o.track.extra || 1);
+(function addShipments(){
+  orders.forEach(o => { if (o.status === '배송 완료'){ const c = R2() < .82 ? 'cj' : 'post'; o.track = { courier:c, no:genTrack(c), stage:'DELIVERED', shipped:o.ship, extra: R2() < .7 ? 1 : 2 }; } });
+  const pool = [...new Set(orders.filter(o => o.items.some(i => P[i.pid].kind === '김치')).map(o => o.cid))];
+  const plan = [
+    ['2026-09-27','2026-09-28','DELIVERED'], ['2026-09-28','2026-09-29','DELIVERED'],
+    ['2026-09-30','2026-10-02','OUT_FOR_DELIVERY'], ['2026-10-01','2026-10-02','OUT_FOR_DELIVERY'],
+    ['2026-10-01','2026-10-02','IN_TRANSIT'], ['2026-10-01','2026-10-02','IN_TRANSIT'], ['2026-10-02','2026-10-02','IN_TRANSIT'],
+    ['2026-10-02','2026-10-03','REGISTERED'],
+    ['2026-10-02','2026-10-05',null], ['2026-10-03','2026-10-05',null], ['2026-10-03','2026-10-06',null]
+  ];
+  plan.forEach(([date, ship, stage], i) => {
+    const cid = pool[Math.floor(R2() * pool.length)];
+    const o = { id: nextOid++, cid, date, items:[{ pid: R2() < .6 ? 'k5' : 'k10', qty: R2() < .8 ? 1 : 2 }], recipient:null, ship, memo:'',
+      status: !stage ? '입금 확인' : stage === 'DELIVERED' ? '배송 완료' : '배송중' };
+    if (stage){ const c = i % 4 === 3 ? 'post' : 'cj'; o.track = { courier:c, no:genTrack(c), stage, shipped:ship, extra:1 }; }
+    orders.push(o);
+  });
+  orders.sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+})();
+const OM = id => orders.find(o => o.id === id);
+function hashStr(s){ let h = 2166136261; for (const ch of s){ h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+const maskName = n => n ? n.slice(0, 1) + '**' : '';
+const fmtDT = s => { const [d, t] = s.split(' '); return `${md(d)} ${t || ''}`.trim(); };
+function buildProgress(o){
+  const t = o.track, rng = mulberry32(hashStr(t.no)), c = CM.get(o.cid);
+  const parts = ((o.recipient && o.recipient.addr) || c.addr).split(' '), region = parts[0], city = parts[1] || parts[0];
+  const tm = (a, b) => `${p2(a + Math.floor(rng() * (b - a)))}:${p2(Math.floor(rng() * 60))}`;
+  const s = t.shipped, n1 = dayAdd(s, 1), n2 = dayAdd(s, t.extra || 1);
+  const ev = t.courier === 'post' ? [
+    [`${s} ${tm(15, 18)}`, '해남우체국', '접수', 'REGISTERED'],
+    [`${s} ${tm(20, 23)}`, '광주우편집중국', '발송', 'IN_TRANSIT'],
+    [`${n1} ${tm(2, 5)}`, `${region}우편집중국`, '도착', 'IN_TRANSIT'],
+    [`${n2} ${tm(7, 9)}`, `${city}우체국`, '배달 준비', 'OUT_FOR_DELIVERY'],
+    [`${n2} ${tm(12, 17)}`, `${city}우체국`, '배달 완료', 'DELIVERED']
+  ] : [
+    [`${s} ${tm(16, 19)}`, '전남 해남 집배점', '집화 처리', 'REGISTERED'],
+    [`${s} ${tm(21, 23)}`, '광주 터미널', '간선 상차', 'IN_TRANSIT'],
+    [`${n1} ${tm(1, 4)}`, '중부권 허브', '간선 하차', 'IN_TRANSIT'],
+    [`${n2} ${tm(7, 9)}`, `${region} ${city}`, '배송 출발', 'OUT_FOR_DELIVERY'],
+    [`${n2} ${tm(12, 18)}`, `${region} ${city}`, '배송 완료', 'DELIVERED']
+  ];
+  const upto = { REGISTERED:1, IN_TRANSIT:3, OUT_FOR_DELIVERY:4, DELIVERED:5 }[t.stage] || 1;
+  return ev.slice(0, upto).map(([dateTime, location, description, statusCode]) => ({ dateTime, location, status: STAGE_TEXT[statusCode], statusCode, description }));
+}
+function traceData(o, withProg){
+  const pr = buildProgress(o), last = pr[pr.length - 1], c = CM.get(o.cid);
+  const d = { trackingNumber:o.track.no, courierCode:o.track.courier, courierName:CN[o.track.courier], deliveryStatus:o.track.stage, deliveryStatusText:STAGE_TEXT[o.track.stage],
+    isDelivered:o.track.stage === 'DELIVERED', senderName:maskName('해남농원'), receiverName:maskName(o.recipient ? o.recipient.name : c.name), productName:itemsText(o), dateLastProgress:last.dateTime };
+  if (withProg) d.progresses = pr;
+  d.queriedAt = new Date().toISOString();
+  return d;
+}
+function mockTrace(body){
+  const results = (body.items || []).map(it => {
+    const no = digits(it.trackingNumber), base = { clientId: it.clientId };
+    const fail = (code, message, billable) => Object.assign(base, { success:false, error:{ code, message, courierCode:it.courierCode, trackingNumber:no, billable } });
+    if (!CN[it.courierCode]) return fail('UNSUPPORTED_COURIER', '지원하지 않는 택배사입니다.', false);
+    if (no.length < 9 || no.length > 14) return fail('INVALID_PARAMS', '송장번호 형식이 올바르지 않습니다.', false);
+    const o = orders.find(x => x.track && x.track.no === no && x.track.courier === it.courierCode);
+    if (!o) return fail('NOT_FOUND', '조회된 배송 정보가 없습니다.', true);
+    return Object.assign(base, { success:true, data: traceData(o, body.includeProgresses !== false) });
+  });
+  return { isSuccess:true, data:{ results, summary:{ total:results.length, successful:results.filter(r => r.success).length, billable:results.filter(r => r.success || r.error.billable).length } } };
+}
+let lastX = null;
+async function trace(items){
+  const body = { items, includeProgresses:true, skipCache:false };
+  let res;
+  if (TRACKING_PROXY){
+    const r = await fetch(TRACKING_PROXY, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(body) });
+    res = await r.json().catch(() => ({ isSuccess:false, error:{ code:'HTTP_' + r.status, message:'응답을 읽지 못했습니다.' } }));
+  } else {
+    await new Promise(r => setTimeout(r, 350 + Math.random() * 350));
+    res = mockTrace(body);
+  }
+  lastX = { body, res };
+  ((res.data && res.data.results) || []).forEach(r => {
+    if (!r.success) return;
+    const d = r.data, o = orders.find(x => x.track && x.track.no === d.trackingNumber && x.track.courier === d.courierCode);
+    if (!o) return;
+    o.track.stage = d.deliveryStatus;
+    const pr = d.progresses || [], p = pr[pr.length - 1];
+    if (p) o.track.lastText = `${fmtDT(p.dateTime)}, ${p.location} ${p.description || p.status || ''}`.trim();
+    if (d.isDelivered) o.status = '배송 완료'; else if (!['FAILED','RETURNED','CANCELLED'].includes(d.deliveryStatus)) o.status = '배송중';
+  });
+  return res;
+}
+
 /* ================= 손님별 집계 ================= */
 let SC = null;
 function stats(){
@@ -586,7 +758,7 @@ function stripHTML(s, lg){
   return `<span class="strip${lg ? ' lg' : ''}" aria-label="김장 주문한 해: ${[2024,2025,2026].filter(y => s.seasons.has(y)).join(', ') || '없음'}">${cell(2024)}${cell(2025)}${cell(2026)}</span>`;
 }
 const consentPill = c => c.consent.status === '동의' ? '<span class="pill c-yes">문자 동의</span>' : c.consent.status === '거부' ? '<span class="pill c-no">문자 거부</span>' : '<span class="pill c-unk">동의 미확인</span>';
-const statusPill = s => `<span class="pill ${s === '접수' ? 'p-new' : s === '입금 확인' ? 'p-paid' : 'p-done'}">${s}</span>`;
+const statusPill = s => `<span class="pill ${s === '접수' ? 'p-new' : s === '입금 확인' ? 'p-paid' : s === '배송중' ? 'p-ship' : 'p-done'}">${s}</span>`;
 const region = a => a.split(' ').slice(0, 2).join(' ');
 
 /* ================= 알림, 시트 ================= */
@@ -599,7 +771,7 @@ $('#sheetBack').addEventListener('click', e => { if (e.target.id === 'sheetBack'
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#sheetBack').hidden) closeSheet(); });
 
 /* ================= 화면 전환 ================= */
-const VIEWS = ['home','order','ledger','customers','send'];
+const VIEWS = ['home','order','ledger','ship','customers','send'];
 let tab = 'home';
 const RENDER = {};
 function go(t, opts){
@@ -980,8 +1152,8 @@ vLedger.addEventListener('click', e => {
 });
 function copyLedger(){
   const rows = ledgerRows();
-  const head = ['주문일','이름','전화번호','주소','상품','박스','금액','보낼 날','상태','받는 분','문자 동의'];
-  const lines = [head.join('\t')].concat(rows.map(o => { const c = CM.get(o.cid); return [o.date, c.name, c.phone, c.addr, itemsText(o), boxes(o), amt(o), o.ship, o.status, o.recipient ? o.recipient.name : '', c.consent.status].join('\t'); }));
+  const head = ['주문일','이름','전화번호','주소','상품','박스','금액','보낼 날','상태','택배사','송장번호','받는 분','문자 동의'];
+  const lines = [head.join('\t')].concat(rows.map(o => { const c = CM.get(o.cid); return [o.date, c.name, c.phone, c.addr, itemsText(o), boxes(o), amt(o), o.ship, o.status, o.track ? CN[o.track.courier] : '', o.track ? o.track.no : '', o.recipient ? o.recipient.name : '', c.consent.status].join('\t'); }));
   const text = lines.join('\n');
   const fallback = () => {
     openSheet(`<div class="sheet-top"><h2 id="sheetTitle">엑셀로 복사</h2><button class="x" data-act="close" aria-label="닫기">×</button></div><p>아래 글을 모두 선택해서 복사한 뒤 엑셀 첫 칸에 붙여 넣으세요.</p><textarea class="inp" id="copyArea" style="min-height:300px;font-size:14px" readonly>${esc(text)}</textarea>`);
@@ -1084,13 +1256,15 @@ function openCustomer(cid){
     <div style="display:grid;gap:10px"><h3>안내 문자 동의</h3>${consentBlock}<p class="muted small">동의는 한 분씩 바꿀 수 있어요. 받은 날짜와 방법이 함께 남아요.</p></div>
     <button class="btn primary big wide" data-act="order-for" data-cid="${c.id}">이 손님 주문 적기</button>
     <div style="display:grid;gap:10px"><h3>지난 주문</h3>
-      <ul class="hist-orders">${os.map(o => `<li><span style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b class="num">${dot(o.date)}</b>${statusPill(o.status)}</span><span>${esc(itemsText(o))}</span><span class="muted small num">${won(amt(o))}${o.recipient ? `, 받는 분 ${esc(o.recipient.name)}` : ''}${o.memo ? `, ${esc(o.memo)}` : ''}</span></li>`).join('')}</ul>
+      <ul class="hist-orders">${os.map(o => `<li><span style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b class="num">${dot(o.date)}</b>${statusPill(o.status)}</span><span>${esc(itemsText(o))}</span><span class="muted small num">${won(amt(o))}${o.recipient ? `, 받는 분 ${esc(o.recipient.name)}` : ''}${o.memo ? `, ${esc(o.memo)}` : ''}</span>${o.track ? `<span class="muted small num">${shortCN(o.track.courier)} ${o.track.no} <button class="link-btn small" data-act="track" data-oid="${o.id}">배송 조회</button></span>` : ''}</li>`).join('')}</ul>
     </div>`);
 }
 $('#sheet').addEventListener('click', e => {
   const b = e.target.closest('[data-act]'); if (!b) return;
   const a = b.dataset.act;
   if (a === 'close') closeSheet();
+  else if (onTrackAct(a, b)) {}
+  else if (a === 'track') openTrack(OM(+b.dataset.oid));
   else if (a === 'upload-ok'){ closeSheet(); toast('시연 화면이라 예시 장부가 이미 들어가 있어요'); }
   else if (a === 'order-for'){ const id = +b.dataset.cid; closeSheet(); go('order', { cid:id }); }
   else if (a === 'copy-phone'){ const ph = b.dataset.phone; try { navigator.clipboard.writeText(ph).then(() => toast('전화번호를 복사했어요'), () => toast('복사가 안 되면 번호를 길게 눌러 복사하세요')); } catch (err) { toast('복사가 안 되면 번호를 길게 눌러 복사하세요'); } }
@@ -1261,6 +1435,182 @@ function runNL(){
 vSend.addEventListener('keydown', e => { if (e.target.id === 's-nl' && e.key === 'Enter'){ e.preventDefault(); runNL(); } });
 vSend.addEventListener('input', e => { if (e.target.id === 's-text'){ C.text = e.target.value; C.edited = true; C.confirm = false; sendDyn(); } else if (e.target.id === 's-nl') C.nl = e.target.value; });
 vSend.addEventListener('change', e => { if (e.target.name === 'mtype'){ setType(e.target.value); C.confirm = false; sendDyn(); } });
+
+/* ================= 배송 ================= */
+const SH = { notify:true, waitLimit:6 };
+let shipBuilt = false;
+const inFlight = () => orders.filter(o => o.track && o.track.stage !== 'DELIVERED');
+const waiting = () => orders.filter(o => !o.track && o.status === '입금 확인').sort((a, b) => (a.ship || '9').localeCompare(b.ship || '9') || a.id - b.id);
+const courierOptions = sel => COURIERS.map(([k, n]) => `<option value="${k}" ${k === sel ? 'selected' : ''}>${n}</option>`).join('');
+function stepsHTML(stage){
+  const i = STAGES.indexOf(stage);
+  return `<ol class="steps" aria-label="배송 단계">${['집화','이동 중','배송 출발','배송 완료'].map((l, k) => `<li class="${k < i ? 'on' : k === i ? (stage === 'DELIVERED' ? 'on' : 'on now') : ''}">${l}</li>`).join('')}</ol>`;
+}
+function trackCard(d, o){
+  const bad = ['FAILED','RETURNED','CANCELLED'].includes(d.deliveryStatus);
+  const cls = d.isDelivered ? 'done' : bad ? 'bad' : 'go';
+  const prog = (d.progresses || []).slice().reverse();
+  const c = o ? CM.get(o.cid) : null;
+  return `<div class="track">
+    <div class="track-top"><div><h3>${esc(d.courierName || CN[d.courierCode] || d.courierCode)} <span class="num">${esc(d.trackingNumber)}</span></h3>
+      <p class="muted small">${c ? `${esc(c.name)}님 주문, ${esc(itemsText(o))}` : `받는 분 ${esc(d.receiverName || '-')}${d.productName ? `, ${esc(d.productName)}` : ''}`}</p></div>
+      <div class="big-status ${cls}">${esc(d.deliveryStatusText || STAGE_TEXT[d.deliveryStatus] || d.deliveryStatus)}</div></div>
+    ${bad ? '' : stepsHTML(d.deliveryStatus)}
+    <ol class="tl">${prog.map(p => `<li class="${d.isDelivered ? 'done' : ''}"><div><b>${esc(p.description || p.status || '')}</b><div class="w">${esc(fmtDT(p.dateTime))}, ${esc(p.location || '')}</div></div></li>`).join('')}</ol>
+    ${c ? `<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" data-act="t-cust" data-cid="${c.id}">손님 보기</button>${!d.isDelivered ? `<button class="btn" data-act="t-notify" data-oid="${o.id}">손님께 배송 안내 보내기</button>` : ''}</div>` : ''}
+  </div>`;
+}
+function errBox(r, res){
+  const e = (r && r.error) || (res && res.error) || {};
+  const msg = { NOT_FOUND:'조회된 배송 정보가 없어요. 택배사와 송장번호를 다시 확인해 주세요.', INVALID_PARAMS:'송장번호 형식이 맞지 않아요. 숫자만 10~13자리로 넣어 주세요.',
+    UNSUPPORTED_COURIER:'지원하지 않는 택배사예요.', UNAUTHORIZED:'택배 조회 키가 맞지 않아요. 서버 설정을 확인해 주세요.', RATE_LIMITED:'조회 한도를 넘었어요. 잠시 뒤 다시 해 주세요.' }[e.code] || e.message || '조회하지 못했어요.';
+  const demo = !TRACKING_PROXY && e.code === 'NOT_FOUND' ? ' 시연 모드에서는 장부에 있는 송장만 조회돼요. 위의 예시 송장을 눌러 보세요.' : '';
+  return `<p class="note warn">${esc(msg)}${demo}</p>`;
+}
+function lastLine(o){
+  if (o.track.lastText) return o.track.lastText;
+  if (TRACKING_PROXY) return '새로 조회를 눌러 확인해 주세요';
+  const pr = buildProgress(o), p = pr[pr.length - 1];
+  return `${fmtDT(p.dateTime)}, ${p.location} ${p.description}`;
+}
+function notifyShip(o){
+  const c = CM.get(o.cid);
+  C.history.unshift({ label:`${c.name}님 배송 안내`, count:1, type:'info', when:`${md(TODAY_ISO)} 보냄` });
+  return c.name;
+}
+RENDER.ship = function(){
+  if (!shipBuilt){
+    const live = !!TRACKING_PROXY;
+    $('#v-ship').innerHTML = `
+      <div class="view-head"><h1>배송 확인</h1><p>송장번호만 넣으면 택배사 상관없이 한 화면에서 배송 상황을 봐요. 송장을 적으면 손님께 배송 안내도 보낼 수 있어요.</p>
+        <span class="mode ${live ? 'live' : ''}"><i></i>${live ? '실제 택배 조회 연결됨' : '시연 모드: 예시 배송 정보로 보여 드려요'}</span></div>
+      <div class="stat-row" id="sh-stats"></div>
+      <div class="panel" style="display:grid;gap:14px">
+        <h2>송장번호로 찾기</h2>
+        <div class="lookup">
+          <div class="field"><label for="sh-courier">택배사</label><select class="inp" id="sh-courier">${courierOptions('cj')}</select></div>
+          <div class="field"><label for="sh-no">송장번호</label><input class="inp num" id="sh-no" inputmode="numeric" autocomplete="off" placeholder="숫자만 넣어 주세요"></div>
+          <button class="btn primary big" data-act="lookup">조회</button>
+        </div>
+        <div class="samples" id="sh-samples" ${live ? 'hidden' : ''}></div>
+        <div id="sh-result" aria-live="polite"></div>
+      </div>
+      <div class="panel" id="sh-move-panel">
+        <div class="panel-head"><div><h2>지금 배송 중인 주문</h2><p class="muted small">줄을 누르면 지나온 길이 보여요</p></div><button class="btn" data-act="refresh-all">모두 새로 조회</button></div>
+        <ul class="slist" id="sh-moving"></ul>
+      </div>
+      <div class="panel" id="sh-wait-panel" style="display:grid;gap:12px">
+        <div class="panel-head" style="margin-bottom:0"><div><h2>송장 기다리는 주문</h2><p class="muted small">입금 확인된 주문이에요. 포장하고 송장번호를 적어 주세요.</p></div></div>
+        <label class="check"><input type="checkbox" id="sh-notify" ${SH.notify ? 'checked' : ''}>송장을 적으면 손님께 배송 안내 문자 보내기</label>
+        <p class="muted small">배송 안내는 광고가 아니라서 문자 동의가 없어도 보낼 수 있어요.</p>
+        <ul class="slist" id="sh-wait"></ul>
+      </div>
+      <details class="panel dev" id="sh-dev"><summary>개발자 보기: 택배 API 요청과 응답</summary><div id="sh-devbody"></div></details>`;
+    shipBuilt = true;
+  }
+  shipDyn();
+};
+function shipDyn(){
+  if (!$('#sh-stats')) return;
+  const keep = {}; document.querySelectorAll('#sh-wait input, #sh-wait select').forEach(el => keep[el.id] = el.value);
+  const mv = inFlight(), wt = waiting();
+  const from7 = dayAdd(TODAY_ISO, -6);
+  const dlv7 = orders.filter(o => o.track && o.track.stage === 'DELIVERED' && deliveredOn(o) >= from7 && deliveredOn(o) <= TODAY_ISO).length;
+  const nOut = mv.filter(o => o.track.stage === 'OUT_FOR_DELIVERY').length;
+  $('#sh-stats').innerHTML = `
+    <button class="stat ${wt.length ? 'attn' : ''}" data-act="go-wait"><span class="k">송장 기다리는 주문</span><span class="v">${wt.length}<small>건</small></span></button>
+    <button class="stat" data-act="go-move"><span class="k">이동 중</span><span class="v">${mv.length - nOut}<small>건</small></span></button>
+    <button class="stat" data-act="go-move"><span class="k">오늘 배송 출발</span><span class="v">${nOut}<small>건</small></span></button>
+    <div class="stat" style="cursor:default"><span class="k">최근 7일 배송 완료</span><span class="v">${dlv7}<small>건</small></span></div>`;
+  const smp = mv.slice(0, 3).concat(orders.filter(o => o.track && o.track.stage === 'DELIVERED').slice(0, 1));
+  $('#sh-samples').innerHTML = `<span class="muted small">예시 송장:</span>` + smp.map(o => `<button class="chip" data-act="sample" data-c="${o.track.courier}" data-no="${o.track.no}">${shortCN(o.track.courier)} ${o.track.no}</button>`).join('');
+  $('#sh-moving').innerHTML = mv.length ? mv.map(o => { const c = CM.get(o.cid);
+    return `<li><button class="srow" data-act="open-track" data-oid="${o.id}"><span class="nm">${esc(c.name)}</span><span class="pill p-ship">${STAGE_TEXT[o.track.stage] || o.track.stage}</span><span class="meta">${shortCN(o.track.courier)} ${o.track.no}, ${esc(itemsText(o))}</span><span></span><span class="last">${esc(lastLine(o))}</span></button></li>`; }).join('')
+    : '<li class="muted" style="padding:12px 4px">지금 배송 중인 주문이 없어요.</li>';
+  const ws = wt.slice(0, SH.waitLimit);
+  $('#sh-wait').innerHTML = ws.length ? ws.map(o => { const c = CM.get(o.cid);
+    return `<li class="wait"><div class="top"><b>${esc(c.name)}</b><span class="muted small num">보낼 날 ${o.ship ? mdw(o.ship) : '미정'}</span></div>
+      <div class="muted small">${esc(itemsText(o))}, ${esc(region(o.recipient ? o.recipient.addr : c.addr))}</div>
+      <div class="wait-form"><select class="inp" id="wc-${o.id}" aria-label="${esc(c.name)}님 택배사">${courierOptions('cj')}</select><input class="inp num" id="wn-${o.id}" inputmode="numeric" autocomplete="off" placeholder="송장번호" aria-label="${esc(c.name)}님 송장번호"><button class="btn" data-act="w-fill" data-oid="${o.id}">예시 번호</button><button class="btn primary" data-act="w-save" data-oid="${o.id}">저장</button></div></li>`; }).join('')
+    + (wt.length > ws.length ? `<li class="more"><button class="btn" data-act="w-more">${Math.min(6, wt.length - ws.length)}건 더 보기</button></li>` : '')
+    : '<li class="muted" style="padding:12px 4px">송장을 기다리는 주문이 없어요.</li>';
+  Object.keys(keep).forEach(id => { const el = document.getElementById(id); if (el) el.value = keep[id]; });
+  const live = !!TRACKING_PROXY;
+  $('#sh-devbody').innerHTML = `<p class="muted small" style="margin-top:8px">${live ? '키를 숨겨 주는 서버를 거쳐 실제 택배 API를 불러요.' : '시연 모드라 실제 API 대신 같은 모양의 예시 응답을 만들어 보여 줘요. 실제 서비스에서는 서버가 아래처럼 택배 API를 불러요.'}</p>`
+    + (lastX ? `<div class="lab">요청</div><pre class="code">POST https://api.deliveryapi.co.kr/v1/tracking/trace
+Authorization: Bearer {apiKey}:{secretKey}
+Content-Type: application/json
+
+${esc(JSON.stringify(lastX.body, null, 2))}</pre><div class="lab">응답</div><pre class="code">${esc(JSON.stringify(lastX.res, null, 2))}</pre>`
+      : `<p class="note small" style="margin-top:10px">아직 조회한 송장이 없어요. 위에서 하나 조회해 보세요.</p>`);
+}
+async function doLookup(){
+  const courier = $('#sh-courier').value, no = digits($('#sh-no').value), out = $('#sh-result');
+  if (!no){ out.innerHTML = '<p class="note warn">송장번호를 넣어 주세요.</p>'; $('#sh-no').focus(); return; }
+  out.innerHTML = '<p class="muted">택배사에 물어보는 중이에요...</p>';
+  try {
+    const res = await trace([{ clientId:'lookup-1', courierCode:courier, trackingNumber:no }]);
+    const r = res.data && res.data.results && res.data.results[0];
+    const o = r && r.success ? orders.find(x => x.track && x.track.no === r.data.trackingNumber && x.track.courier === r.data.courierCode) : null;
+    out.innerHTML = r && r.success ? trackCard(r.data, o) : errBox(r, res);
+  } catch (e) { out.innerHTML = '<p class="note bad">조회하지 못했어요. 인터넷 연결이나 서버 주소를 확인해 주세요.</p>'; }
+  shipDyn();
+}
+async function openTrack(o){
+  openSheet(`<div class="sheet-top"><h2 id="sheetTitle">${esc(CM.get(o.cid).name)}님 배송</h2><button class="x" data-act="close" aria-label="닫기">×</button></div><div id="tr-body"><p class="muted">택배사에 물어보는 중이에요...</p></div>`);
+  try {
+    const res = await trace([{ clientId:`order-${o.id}`, courierCode:o.track.courier, trackingNumber:o.track.no }]);
+    const r = res.data && res.data.results && res.data.results[0], b = $('#tr-body');
+    if (b) b.innerHTML = r && r.success ? trackCard(r.data, o) : errBox(r, res);
+  } catch (e) { const b = $('#tr-body'); if (b) b.innerHTML = '<p class="note bad">조회하지 못했어요. 인터넷 연결이나 서버 주소를 확인해 주세요.</p>'; }
+  if (tab === 'ship') shipDyn();
+}
+function onTrackAct(a, b){
+  if (a === 't-cust'){ openCustomer(+b.dataset.cid); return true; }
+  if (a === 't-notify'){ const name = notifyShip(OM(+b.dataset.oid)); toast(`시연 화면이라 실제로 보내지는 않았어요. 실제로는 ${name}님께 배송 안내가 나가요`); return true; }
+  return false;
+}
+const vShip = $('#v-ship');
+vShip.addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const a = b.dataset.act;
+  if (onTrackAct(a, b)) return;
+  if (a === 'lookup') doLookup();
+  else if (a === 'sample'){ $('#sh-courier').value = b.dataset.c; $('#sh-no').value = b.dataset.no; doLookup(); }
+  else if (a === 'open-track') openTrack(OM(+b.dataset.oid));
+  else if (a === 'go-wait') $('#sh-wait-panel').scrollIntoView({ behavior:'smooth', block:'start' });
+  else if (a === 'go-move') $('#sh-move-panel').scrollIntoView({ behavior:'smooth', block:'start' });
+  else if (a === 'w-more'){ SH.waitLimit += 6; shipDyn(); }
+  else if (a === 'w-fill'){ const id = b.dataset.oid; $('#wn-' + id).value = genTrack($('#wc-' + id).value); }
+  else if (a === 'w-save'){
+    const o = OM(+b.dataset.oid), courier = $('#wc-' + o.id).value, no = digits($('#wn-' + o.id).value);
+    if (no.length < 10 || no.length > 13){ toast('송장번호를 숫자 10~13자리로 넣어 주세요'); $('#wn-' + o.id).focus(); return; }
+    if (orders.some(x => x.track && x.track.no === no)){ toast('이미 다른 주문에 쓰인 송장번호예요'); return; }
+    usedTrack.add(no);
+    o.track = { courier, no, stage:'REGISTERED', shipped:TODAY_ISO, extra:1 };
+    o.status = '배송중';
+    const name = CM.get(o.cid).name;
+    if (SH.notify){ notifyShip(o); toast(`${name}님 송장을 적고 배송 안내를 보냈어요 (시연이라 실제 발송은 안 돼요)`); }
+    else toast(`${name}님 송장을 적었어요`);
+    shipDyn();
+  }
+  else if (a === 'refresh-all'){
+    const mv = inFlight().slice(0, 50);
+    if (!mv.length){ toast('배송 중인 주문이 없어요'); return; }
+    b.disabled = true; b.textContent = '조회하는 중...';
+    try {
+      const before = mv.filter(o => o.track.stage === 'DELIVERED').length;
+      const res = await trace(mv.map(o => ({ clientId:`order-${o.id}`, courierCode:o.track.courier, trackingNumber:o.track.no })));
+      const ok = (res.data && res.data.summary && res.data.summary.successful) || 0;
+      const done = mv.filter(o => o.track.stage === 'DELIVERED').length - before;
+      toast(`${mv.length}건을 한 번에 조회했어요. 성공 ${ok}건${done ? `, 배송 완료로 바뀐 주문 ${done}건` : ''}`);
+    } catch (err) { toast('조회하지 못했어요. 인터넷 연결이나 서버 주소를 확인해 주세요'); }
+    shipDyn();
+    const rb = vShip.querySelector('[data-act="refresh-all"]'); if (rb){ rb.disabled = false; rb.textContent = '모두 새로 조회'; }
+  }
+});
+vShip.addEventListener('keydown', e => { if (e.target.id === 'sh-no' && e.key === 'Enter'){ e.preventDefault(); doLookup(); } });
+vShip.addEventListener('change', e => { if (e.target.id === 'sh-notify') SH.notify = e.target.checked; });
 
 /* ================= 시작 ================= */
 const start = (location.hash || '').replace('#', '');
