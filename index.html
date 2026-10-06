@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>해남농원 주문장부</title>
-<meta name="description" content="절임배추 농원용 주문장부와 단골 관리 시연 화면. 모든 데이터는 예시입니다.">
+<meta name="description" content="전화와 문자로 주문 받고 택배로 보내는 사장님을 위한 주문장부와 단골 관리 시연 화면. 모든 데이터는 예시입니다.">
 <meta name="robots" content="noindex">
 <meta property="og:type" content="website">
 <meta property="og:title" content="해남농원 주문장부 (시연)">
@@ -53,7 +53,7 @@ p{margin:0}
 
 /* ---------- 메뉴 ---------- */
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);
-  display:grid;grid-template-columns:repeat(6,1fr);gap:2px;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+  display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:6px 2px calc(6px + env(safe-area-inset-bottom,0px))}
 .nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:58px;padding:6px 2px;border-radius:12px;
   text-decoration:none;color:var(--ink-2);font-size:13.5px;font-weight:600;white-space:nowrap}
 .nav a svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -399,8 +399,22 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:44px;background
 @media (max-width:640px){#sh-samples{flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding-inline:16px;padding-bottom:4px;scrollbar-width:none}#sh-samples::-webkit-scrollbar{display:none}#sh-samples .chip,#sh-samples span{flex:none}}
 @media (max-width:640px){.stat{padding:12px}.stat .v{font-size:30px}.stat .k{font-size:14.5px}.big-status{font-size:28px}.steps li{font-size:13.5px}.track{padding:14px}.code{font-size:12.5px}}
 
+/* ---------- 설정 ---------- */
+.set-grid{display:grid;gap:22px;grid-template-columns:1fr}
+@media (min-width:1080px){.set-grid{grid-template-columns:1fr 1fr;align-items:start}}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.plist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;padding:14px 4px;border-top:1px solid var(--line)}
+.plist li:first-child{border-top:0}
+.plist li.off .pn,.plist li.off .pm{opacity:.5}
+.plist .pn{font-weight:700;font-size:19px}
+.plist .pm{color:var(--ink-2);font-size:15.5px;font-variant-numeric:tabular-nums;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.plist .acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.plist .acts .btn{min-height:48px;font-size:16px;padding:0 14px}
+@media (max-width:640px){.plist li{grid-template-columns:1fr}.plist .acts{justify-content:flex-start}}
+.unit-chips .chip{min-height:44px;font-size:16px}
+
 /* ---------- 휴대폰 ---------- */
-.view > *,.home-grid > *,.order-grid > *,.send-grid > *,.send-grid > * > *,.hello > *{min-width:0}
+.view > *,.home-grid > *,.order-grid > *,.send-grid > *,.send-grid > * > *,.hello > *,.set-grid > *{min-width:0}
 .chart svg.narrow{min-width:0}
 .person-row .pill,.ccard .pill{justify-self:end}
 @media (max-width:759px){.ccard .pill{justify-self:start}}
@@ -473,7 +487,8 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:44px;background
   .kv{grid-template-columns:64px 1fr;font-size:16px}
 }
 @media (max-width:370px){
-  .nav a{font-size:12px}
+  .nav a{font-size:11.5px;padding:6px 0}
+  .nav a svg{width:23px;height:23px}
   .tiles{grid-template-columns:1fr}
   .tile .big{font-size:34px}
   .segs{grid-template-columns:1fr}
@@ -488,6 +503,7 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:44px;background
   <a href="#ship" data-tab="ship"><svg viewBox="0 0 24 24"><path d="M2.5 6.5h11v10h-11z"/><path d="M13.5 9.5h4l3.5 3.5v3.5h-7.5"/><circle cx="6.5" cy="17.5" r="1.9"/><circle cx="17" cy="17.5" r="1.9"/></svg><span class="ll">배송</span><span class="ls">배송</span></a>
   <a href="#customers" data-tab="customers"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.5.2 4.3 1.9 5 5"/></svg><span class="ll">손님</span><span class="ls">손님</span></a>
   <a href="#send" data-tab="send"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-7 18-3-7z"/><path d="M11 14l4-4"/></svg><span class="ll">안내 보내기</span><span class="ls">안내</span></a>
+  <a href="#settings" data-tab="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span class="ll">설정</span><span class="ls">설정</span></a>
 </nav>
 
 <div class="shell">
@@ -502,6 +518,7 @@ select.inp{appearance:none;-webkit-appearance:none;padding-right:44px;background
     <section id="v-ship" class="view" aria-label="배송" hidden></section>
     <section id="v-customers" class="view" aria-label="손님" hidden></section>
     <section id="v-send" class="view" aria-label="안내 보내기" hidden></section>
+    <section id="v-settings" class="view" aria-label="설정" hidden></section>
   </main>
 </div>
 
@@ -526,8 +543,17 @@ const dot = s => s.replace(/-/g, '.');
 const md = s => { const d = parseISO(s); return `${d.getMonth()+1}월 ${d.getDate()}일`; };
 const mdw = s => { const d = parseISO(s); return `${d.getMonth()+1}월 ${d.getDate()}일 (${DOW[d.getDay()]})`; };
 const won = n => n.toLocaleString('ko-KR') + '원';
-const seasonOf = s => { const y = +s.slice(0,4), m = +s.slice(5,7); if (m >= 9) return y; if (m <= 1) return y - 1; return null; };
-const yLabel = y => y === 2026 ? '올해' : y === 2025 ? '작년' : '재작년';
+/* ================= 가게 설정 (사장님이 정하는 값. 시연이라 새로고침하면 처음으로 돌아감) ================= */
+const SHOP = { name:'해남농원', sub:'주문장부', phone:'061-000-0000', optout:'080-000-0000' };
+// 시즌: 한 해 중 주문이 몰리는 때. 시작 달이 끝나는 달보다 뒤면 해를 넘기는 시즌(예: 9월~1월). 시즌 해는 시작한 해로 부름.
+const SEASON = { name:'김장', start:9, end:1 };
+const inSeasonMonth = m => SEASON.start <= SEASON.end ? (m >= SEASON.start && m <= SEASON.end) : (m >= SEASON.start || m <= SEASON.end);
+function seasonOf(s){ const y = +s.slice(0,4), m = +s.slice(5,7); if (!inSeasonMonth(m)) return null; return (SEASON.start > SEASON.end && m <= SEASON.end) ? y - 1 : y; }
+const seasonRange = () => `${SEASON.start}월~${SEASON.end}월`;
+let CUR = 2026; // 올해 시즌 해. 설정이 바뀌면 다시 계산
+function recalcCur(){ CUR = seasonOf(TODAY_ISO) != null ? seasonOf(TODAY_ISO) : TODAY.getFullYear(); }
+const yLabel = y => y === CUR ? '올해' : y === CUR - 1 ? '작년' : y === CUR - 2 ? '재작년' : `${y}년`;
+const SEASON_YEARS = () => [CUR - 2, CUR - 1, CUR];
 const digits = s => String(s || '').replace(/\D/g, '');
 function fmtPhone(v){ const d = digits(v).slice(0, 11); if (d.length <= 3) return d; if (d.length <= 7) return d.slice(0,3) + '-' + d.slice(3); return d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7); }
 
@@ -538,18 +564,37 @@ const int = (a, b) => a + Math.floor(R() * (b - a + 1));
 function wpick(pairs){ let t = 0; pairs.forEach(p => t += p[1]); let r = R() * t; for (const p of pairs){ r -= p[1]; if (r < 0) return p[0]; } return pairs[pairs.length-1][0]; }
 function tri(a, c, b){ const u = R(), f = (c - a) / (b - a); return u < f ? a + Math.sqrt(u * (b - a) * (c - a)) : b - Math.sqrt((1 - u) * (b - a) * (b - c)); }
 
-/* ================= 상품 (가격은 예시) ================= */
+/* ================= 파는 물건 (사장님이 설정에서 등록. 가격은 예시) ================= */
+// name 물건 이름, spec 규격, unit 세는 단위, seasonal 시즌에만 파는지, active 지금 파는지(숨겨도 지난 주문은 남음)
 const PRODUCTS = [
-  { id:'b20', name:'절임배추 20kg', price:45000, kind:'배추' },
-  { id:'b10', name:'절임배추 10kg', price:25000, kind:'배추' },
-  { id:'y3',  name:'김장양념 3kg',  price:32000, kind:'양념' },
-  { id:'k10', name:'포기김치 10kg', price:85000, kind:'김치' },
-  { id:'k5',  name:'포기김치 5kg',  price:45000, kind:'김치' }
+  { id:'b20', name:'절임배추', spec:'20kg', unit:'박스', price:45000, seasonal:true,  active:true },
+  { id:'b10', name:'절임배추', spec:'10kg', unit:'박스', price:25000, seasonal:true,  active:true },
+  { id:'y3',  name:'김장양념', spec:'3kg',  unit:'통',   price:32000, seasonal:true,  active:true },
+  { id:'k10', name:'포기김치', spec:'10kg', unit:'박스', price:85000, seasonal:false, active:true },
+  { id:'k5',  name:'포기김치', spec:'5kg',  unit:'박스', price:45000, seasonal:false, active:true }
 ];
+const UNITS = ['박스','통','kg','개','세트','병','봉'];
 const P = {}; PRODUCTS.forEach(p => P[p.id] = p);
+let nextPid = 1;
+const pname = p => `${p.name} ${p.spec}`.trim();
+const activeProducts = () => PRODUCTS.filter(p => p.active);
+// 대표 단위: 파는 물건 중 가장 흔한 단위. 합계 표시("모두 12박스")에 씀
+function mainUnit(){ const cnt = {}; activeProducts().forEach(p => cnt[p.unit] = (cnt[p.unit] || 0) + 1); return Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a])[0] || '개'; }
 const boxes = o => o.items.reduce((a, i) => a + i.qty, 0);
-const amt = o => o.items.reduce((a, i) => a + i.qty * P[i.pid].price, 0);
-const itemsText = o => o.items.map(i => `${P[i.pid].name} ${i.qty}박스`).join(', ');
+const qtyText = (n, o) => { const us = o ? [...new Set(o.items.map(i => P[i.pid].unit))] : []; return `${n}${us.length === 1 ? us[0] : (o ? '개' : mainUnit())}`; };
+// 금액은 주문 당시 가격으로. 설정에서 가격을 바꿔도 지난 장부는 안 바뀜
+const amt = o => o.items.reduce((a, i) => a + i.qty * (i.price != null ? i.price : P[i.pid].price), 0);
+const itemsText = o => o.items.map(i => `${pname(P[i.pid])} ${i.qty}${P[i.pid].unit}`).join(', ');
+// 글에서 물건 찾기: 이름이 그대로 있으면 2점, 이름 끝 두 글자(김치, 배추, 양념)만 있으면 1.5점, 규격 숫자까지 맞으면 +1점
+function productScore(p, text){
+  let sc = 0;
+  p.name.split(/\s+/).forEach(t => { if (t.length >= 2 && text.includes(t)) sc = Math.max(sc, 2); else if (t.length >= 3 && text.includes(t.slice(-2))) sc = Math.max(sc, 1.5); });
+  const num = (p.spec.match(/\d+/) || [])[0];
+  if (sc && num && new RegExp(num + '\\s*(kg|키로|킬로|k|g|개입|호|세트|인분)', 'i').test(text)) sc += 1;
+  return sc;
+}
+function matchProduct(text){ let best = null, bs = 0; activeProducts().forEach(p => { const sc = productScore(p, text); if (sc > bs){ bs = sc; best = p; } }); return bs >= 1.5 ? best : null; }
+const unitRe = () => new RegExp('(\\d+)\\s*(' + [...new Set(PRODUCTS.map(p => p.unit).concat(['박스','상자','box','개']))].join('|') + ')', 'i');
 
 /* ================= 예시 장부 만들기 (2년치) ================= */
 const SUR = [['김',21],['이',15],['박',8],['최',5],['정',4.4],['강',2.4],['조',2.2],['윤',2.1],['장',2],['임',1.8],['한',1.5],['오',1.4],['서',1.3],['신',1.2],['권',1.1],['황',1.1],['안',1],['송',1],['류',.8],['홍',.8],['문',.8],['양',.7],['배',.7],['고',.7],['나',.6],['노',.6]];
@@ -646,7 +691,7 @@ const dayAdd = (s, n) => iso(new Date(parseISO(s).getTime() + n * 864e5));
 const deliveredOn = o => dayAdd(o.track.shipped, o.track.extra || 1);
 (function addShipments(){
   orders.forEach(o => { if (o.status === '배송 완료'){ const c = R2() < .82 ? 'cj' : 'post'; o.track = { courier:c, no:genTrack(c), stage:'DELIVERED', shipped:o.ship, extra: R2() < .7 ? 1 : 2 }; } });
-  const pool = [...new Set(orders.filter(o => o.items.some(i => P[i.pid].kind === '김치')).map(o => o.cid))];
+  const pool = [...new Set(orders.filter(o => o.items.some(i => P[i.pid].name === '포기김치')).map(o => o.cid))];
   const plan = [
     ['2026-09-27','2026-09-28','DELIVERED'], ['2026-09-28','2026-09-29','DELIVERED'],
     ['2026-09-30','2026-10-02','OUT_FOR_DELIVERY'], ['2026-10-01','2026-10-02','OUT_FOR_DELIVERY'],
@@ -662,6 +707,7 @@ const deliveredOn = o => dayAdd(o.track.shipped, o.track.extra || 1);
     orders.push(o);
   });
   orders.sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+  orders.forEach(o => o.items.forEach(i => { if (i.price == null) i.price = P[i.pid].price; }));
 })();
 const OM = id => orders.find(o => o.id === id);
 function hashStr(s){ let h = 2166136261; for (const ch of s){ h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
@@ -691,7 +737,7 @@ function buildProgress(o){
 function traceData(o, withProg){
   const pr = buildProgress(o), last = pr[pr.length - 1], c = CM.get(o.cid);
   const d = { trackingNumber:o.track.no, courierCode:o.track.courier, courierName:CN[o.track.courier], deliveryStatus:o.track.stage, deliveryStatusText:STAGE_TEXT[o.track.stage],
-    isDelivered:o.track.stage === 'DELIVERED', senderName:maskName('해남농원'), receiverName:maskName(o.recipient ? o.recipient.name : c.name), productName:itemsText(o), dateLastProgress:last.dateTime };
+    isDelivered:o.track.stage === 'DELIVERED', senderName:maskName(SHOP.name), receiverName:maskName(o.recipient ? o.recipient.name : c.name), productName:itemsText(o), dateLastProgress:last.dateTime };
   if (withProg) d.progresses = pr;
   d.queriedAt = new Date().toISOString();
   return d;
@@ -742,20 +788,21 @@ function stats(){
     const s = m.get(o.cid); s.orders.push(o);
     const se = seasonOf(o.date), bx = boxes(o);
     if (se != null){ s.seasons.add(se); s.boxes[se] = (s.boxes[se] || 0) + bx; }
-    o.items.forEach(i => { s.kinds.add(P[i.pid].kind); s.pids.add(i.pid); });
+    o.items.forEach(i => { s.kinds.add(P[i.pid].name); s.pids.add(i.pid); });
     s.amount += amt(o);
     if (!s.last || o.date > s.last) s.last = o.date;
     if (!s.first || o.date < s.first) s.first = o.date;
     if (o.recipient) s.gift = true;
-    if (se === 2026 && o.status !== '배송 완료') s.active = true;
+    if (se === CUR && o.status !== '배송 완료') s.active = true;
   });
   m.forEach(s => { s.maxBox = Math.max(0, ...Object.values(s.boxes)); });
   SC = m; return m;
 }
 const st = c => stats().get(c.id);
 function stripHTML(s, lg){
-  const cell = y => { const on = s.seasons.has(y); const open = !on && y === 2026; return `<span class="${on ? 'on' : ''}${open ? ' open' : ''}" title="${y}년 김장 ${on ? '주문함' : (open ? '아직' : '주문 없음')}">${String(y).slice(2)}</span>`; };
-  return `<span class="strip${lg ? ' lg' : ''}" aria-label="김장 주문한 해: ${[2024,2025,2026].filter(y => s.seasons.has(y)).join(', ') || '없음'}">${cell(2024)}${cell(2025)}${cell(2026)}</span>`;
+  const ys = SEASON_YEARS();
+  const cell = y => { const on = s.seasons.has(y); const open = !on && y === CUR; return `<span class="${on ? 'on' : ''}${open ? ' open' : ''}" title="${y}년 ${SEASON.name} ${on ? '주문함' : (open ? '아직' : '주문 없음')}">${String(y).slice(2)}</span>`; };
+  return `<span class="strip${lg ? ' lg' : ''}" aria-label="${SEASON.name} 주문한 해: ${ys.filter(y => s.seasons.has(y)).join(', ') || '없음'}">${ys.map(cell).join('')}</span>`;
 }
 const consentPill = c => c.consent.status === '동의' ? '<span class="pill c-yes">문자 동의</span>' : c.consent.status === '거부' ? '<span class="pill c-no">문자 거부</span>' : '<span class="pill c-unk">동의 미확인</span>';
 const statusPill = s => `<span class="pill ${s === '접수' ? 'p-new' : s === '입금 확인' ? 'p-paid' : s === '배송중' ? 'p-ship' : 'p-done'}">${s}</span>`;
@@ -771,7 +818,7 @@ $('#sheetBack').addEventListener('click', e => { if (e.target.id === 'sheetBack'
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#sheetBack').hidden) closeSheet(); });
 
 /* ================= 화면 전환 ================= */
-const VIEWS = ['home','order','ledger','ship','customers','send'];
+const VIEWS = ['home','order','ledger','ship','customers','send','settings'];
 let tab = 'home';
 const RENDER = {};
 function go(t, opts){
@@ -798,8 +845,9 @@ window.addEventListener('resize', () => { const n = isNarrow(); if (n !== wasNar
 function niceStep(max){ const raw = max / 4; const p = Math.pow(10, Math.floor(Math.log10(raw))); const f = raw / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; }
 function monthChart(){
   const months = [];
-  for (let y = 2024; y <= 2026; y++) for (let m = 1; m <= 12; m++){ if (y === 2026 && m > 10) break; months.push({ y, m, n:0 }); }
-  orders.forEach(o => { const i = (+o.date.slice(0,4) - 2024) * 12 + (+o.date.slice(5,7) - 1); if (months[i]) months[i].n++; });
+  const y0 = TODAY.getFullYear() - 2, yN = TODAY.getFullYear(), mN = TODAY.getMonth() + 1;
+  for (let y = y0; y <= yN; y++) for (let m = 1; m <= 12; m++){ if (y === yN && m > mN) break; months.push({ y, m, n:0 }); }
+  orders.forEach(o => { const i = (+o.date.slice(0,4) - y0) * 12 + (+o.date.slice(5,7) - 1); if (months[i]) months[i].n++; });
   const narrow = isNarrow();
   const W = narrow ? 380 : 720, H = narrow ? 260 : 290, L = narrow ? 36 : 46, RR = narrow ? 10 : 14, T = 30, B = 44, pw = W - L - RR, ph = H - T - B;
   const max = Math.max(...months.map(x => x.n)), step = niceStep(max), top = Math.ceil(max / step) * step, bw = pw / months.length;
@@ -808,25 +856,27 @@ function monthChart(){
   for (let v = 0; v <= top; v += step) g += `<line class="grid" x1="${L}" x2="${W - RR}" y1="${Y(v)}" y2="${Y(v)}"/><text class="tick" x="${L - 8}" y="${Y(v) + 5}" text-anchor="end">${v}</text>`;
   const maxI = months.findIndex(x => x.n === max);
   months.forEach((x, i) => {
-    const cx = L + i * bw + bw / 2, w = bw * .68, h = Math.max(0, (x.n / top) * ph), cur = x.y === 2026 && x.m === 10;
-    const cls = cur ? 'bar cur' : (x.m >= 9 && x.m <= 12 ? 'bar on' : 'bar');
+    const cx = L + i * bw + bw / 2, w = bw * .68, h = Math.max(0, (x.n / top) * ph), cur = x.y === yN && x.m === mN;
+    const cls = cur ? 'bar cur' : (inSeasonMonth(x.m) ? 'bar on' : 'bar');
     if (x.m === 1 && i > 0) g += `<line class="sep" x1="${L + i * bw}" x2="${L + i * bw}" y1="${T}" y2="${T + ph}"/>`;
     g += `<rect class="${cls}" x="${cx - w / 2}" y="${Y(x.n) }" width="${w}" height="${h}" rx="3"><title>${x.y}년 ${x.m}월 주문 ${x.n}건</title></rect>`;
     if (x.m === 1) g += `<text class="xl yr" x="${cx}" y="${H - B + 22}">${x.y}년</text>`;
-    else if (narrow ? (x.m === 10 && x.y === 2026) : (x.m === 4 || x.m === 7 || x.m === 10)) g += `<text class="xl" x="${cx}" y="${H - B + 22}">${x.m}월</text>`;
+    else if (narrow ? (x.m === mN && x.y === yN) : (x.m === 4 || x.m === 7 || x.m === 10)) g += `<text class="xl" x="${cx}" y="${H - B + 22}">${x.m}월</text>`;
     if (i === maxI || cur) g += `<text class="val" x="${cx}" y="${Y(x.n) - 8}">${x.n}건</text>`;
   });
-  return `<svg class="${narrow ? 'narrow' : ''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="2024년 1월부터 2026년 10월까지 월별 주문 건수. 해마다 10월과 11월에 가장 많습니다.">${g}</svg>`;
+  return `<svg class="${narrow ? 'narrow' : ''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${y0}년 1월부터 ${yN}년 ${mN}월까지 월별 주문 건수. ${SEASON.name} 시즌(${seasonRange()})에 몰립니다.">${g}</svg>`;
 }
 RENDER.home = function(){
   const S = stats();
-  const s26 = seasonSum(2026), s25 = seasonSum(2025), s24 = seasonSum(2024);
-  const same25 = orders.filter(o => seasonOf(o.date) === 2025 && o.date <= '2025-10-03').length;
+  const Y0 = CUR, Y1 = CUR - 1, Y2 = CUR - 2, SN = SEASON.name, U = mainUnit();
+  const s26 = seasonSum(Y0), s25 = seasonSum(Y1), s24 = seasonSum(Y2);
+  const same25 = orders.filter(o => seasonOf(o.date) === Y1 && o.date <= `${+TODAY_ISO.slice(0,4) - 1}${TODAY_ISO.slice(4)}`).length;
   const diff = s26.n - same25;
-  const lapsing = customers.filter(c => { const s = S.get(c.id); return s.seasons.has(2025) && !s.seasons.has(2026); });
-  const loyalLapsing = lapsing.filter(c => S.get(c.id).seasons.has(2024));
+  const lapsing = customers.filter(c => { const s = S.get(c.id); return s.seasons.has(Y1) && !s.seasons.has(Y0); });
+  const loyalLapsing = lapsing.filter(c => S.get(c.id).seasons.has(Y2));
   const todayN = orders.filter(o => o.date === TODAY_ISO).length;
-  const top = lapsing.slice().sort((a, b) => { const sa = S.get(a.id), sb = S.get(b.id); return (sb.seasons.has(2024) - sa.seasons.has(2024)) || ((sb.boxes[2025] || 0) - (sa.boxes[2025] || 0)); }).slice(0, 6);
+  const top = lapsing.slice().sort((a, b) => { const sa = S.get(a.id), sb = S.get(b.id); return (sb.seasons.has(Y2) - sa.seasons.has(Y2)) || ((sb.boxes[Y1] || 0) - (sa.boxes[Y1] || 0)); }).slice(0, 6);
+  const inSeason = seasonOf(TODAY_ISO) != null;
   const rate = (cur, prev) => prev.cs.size ? Math.round([...prev.cs].filter(id => cur.cs.has(id)).length / prev.cs.size * 100) + '%' : '';
   const d = TODAY;
   $('#v-home').innerHTML = `
@@ -834,35 +884,35 @@ RENDER.home = function(){
       <div class="view-head">
         <p class="date-line">${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 ${DOW[d.getDay()]}요일</p>
         <h1>${todayN ? `사장님, 오늘 주문 <span class="hl">${todayN}건</span> 들어왔어요` : '사장님, 오늘 들어온 주문은 아직 없어요'}</h1>
-        <p>올해 김장 주문 받기가 한창이에요. 작년에 사 가신 손님 중 아직 소식 없는 분부터 챙겨 보세요.</p>
+        <p>${inSeason ? `올해 ${SN} 주문 받기가 한창이에요.` : `${SN} 시즌(${seasonRange()})이 오기 전에 준비할 때예요.`} 작년에 사 가신 손님 중 아직 소식 없는 분부터 챙겨 보세요.</p>
       </div>
       <button class="btn primary big" data-go="order"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>주문 적기</button>
     </div>
     <div class="tiles">
-      <button class="tile" data-go="ledger" data-season="2026"><span class="lbl">올해 김장 주문</span><span class="big">${s26.n}<small>건</small></span><span class="sub num">${s26.box}박스, ${won(s26.amt)}</span></button>
-      <button class="tile" data-go="ledger" data-season="2025"><span class="lbl">작년 이맘때는</span><span class="big">${same25}<small>건</small></span><span class="sub">${diff > 0 ? `올해가 ${diff}건 더 많아요` : diff < 0 ? `올해가 ${-diff}건 적어요` : '작년과 같아요'}</span></button>
+      <button class="tile" data-go="ledger" data-season="${Y0}"><span class="lbl">올해 ${SN} 주문</span><span class="big">${s26.n}<small>건</small></span><span class="sub num">${s26.box}${U}, ${won(s26.amt)}</span></button>
+      <button class="tile" data-go="ledger" data-season="${Y1}"><span class="lbl">작년 이맘때는</span><span class="big">${same25}<small>건</small></span><span class="sub">${diff > 0 ? `올해가 ${diff}건 더 많아요` : diff < 0 ? `올해가 ${-diff}건 적어요` : '작년과 같아요'}</span></button>
       <button class="tile attn" data-go="customers" data-seg="lapsing"><span class="lbl">작년 손님 중 아직 소식 없는 분</span><span class="big">${lapsing.length}<small>분</small></span><span class="sub">그중 두 해 연속 사신 단골 ${loyalLapsing.length}분</span></button>
     </div>
     <div class="home-grid">
       <div class="panel">
-        <div class="panel-head"><div><h2>주문은 10월과 11월에 몰려요</h2><p class="muted small">달마다 들어온 주문 건수, 2024년 1월부터 오늘까지</p></div></div>
+        <div class="panel-head"><div><h2>주문은 ${SN} 시즌에 몰려요</h2><p class="muted small">달마다 들어온 주문 건수, ${TODAY.getFullYear() - 2}년 1월부터 오늘까지</p></div></div>
         <div class="chart scroll-x">${monthChart()}</div>
-        <div class="legend"><span><i style="background:var(--accent)"></i>김장철 (9~12월)</span><span><i style="background:var(--bar-off)"></i>그 밖의 달</span><span><i style="background:var(--mark);outline:1.5px solid var(--ink)"></i>이번 달 (3일까지)</span></div>
+        <div class="legend"><span><i style="background:var(--accent)"></i>${SN} 시즌 (${seasonRange()})</span><span><i style="background:var(--bar-off)"></i>그 밖의 달</span><span><i style="background:var(--mark);outline:1.5px solid var(--ink)"></i>이번 달 (${TODAY.getDate()}일까지)</span></div>
       </div>
       <div class="panel">
         <div class="panel-head"><div><h2>먼저 연락해 볼 단골</h2><p class="muted small">작년에 많이 사셨는데 올해 아직 주문이 없는 분</p></div><button class="link-btn" data-go="customers" data-seg="lapsing">모두 보기</button></div>
-        <ul class="people">${top.map(c => { const s = S.get(c.id); return `<li><button class="person-row" data-cid="${c.id}"><span class="nm">${esc(c.name)}</span>${stripHTML(s)}<span class="meta">${c.phone}, 작년 ${s.boxes[2025] || 0}박스</span>${consentPill(c)}</button></li>`; }).join('')}</ul>
+        <ul class="people">${top.map(c => { const s = S.get(c.id); return `<li><button class="person-row" data-cid="${c.id}"><span class="nm">${esc(c.name)}</span>${stripHTML(s)}<span class="meta">${c.phone}, 작년 ${s.boxes[Y1] || 0}${U}</span>${consentPill(c)}</button></li>`; }).join('')}</ul>
         <p class="note small" style="margin-top:12px">안내 문자는 동의하신 분께만 보낼 수 있어요. 동의 기록이 없는 분은 전화로 안부를 여쭤 보세요.</p>
       </div>
     </div>
     <div class="panel">
       <div class="panel-head"><h2>해마다 비교</h2></div>
       <div class="scroll-x"><table class="season-tbl">
-        <thead><tr><th>김장 시즌</th><th>주문</th><th>손님</th><th>박스</th><th>금액</th><th>작년 손님이 다시 산 비율</th></tr></thead>
+        <thead><tr><th>${SN} 시즌</th><th>주문</th><th>손님</th><th>${U}</th><th>금액</th><th>작년 손님이 다시 산 비율</th></tr></thead>
         <tbody>
-          <tr><td><b>2026년</b> <span class="muted small">진행 중</span></td><td>${s26.n}건</td><td>${s26.cust}분</td><td>${s26.box}</td><td>${won(s26.amt)}</td><td>${rate(s26, s25)} <span class="muted small">지금까지</span></td></tr>
-          <tr><td><b>2025년</b></td><td>${s25.n}건</td><td>${s25.cust}분</td><td>${s25.box}</td><td>${won(s25.amt)}</td><td>${rate(s25, s24)}</td></tr>
-          <tr><td><b>2024년</b></td><td>${s24.n}건</td><td>${s24.cust}분</td><td>${s24.box}</td><td>${won(s24.amt)}</td><td class="muted">장부 시작</td></tr>
+          <tr><td><b>${Y0}년</b> <span class="muted small">${inSeason ? '진행 중' : '아직'}</span></td><td>${s26.n}건</td><td>${s26.cust}분</td><td>${s26.box}</td><td>${won(s26.amt)}</td><td>${rate(s26, s25)} <span class="muted small">지금까지</span></td></tr>
+          <tr><td><b>${Y1}년</b></td><td>${s25.n}건</td><td>${s25.cust}분</td><td>${s25.box}</td><td>${won(s25.amt)}</td><td>${rate(s25, s24)}</td></tr>
+          <tr><td><b>${Y2}년</b></td><td>${s24.n}건</td><td>${s24.cust}분</td><td>${s24.box}</td><td>${won(s24.amt)}</td><td class="muted">장부 시작</td></tr>
         </tbody></table></div>
     </div>`;
 };
@@ -874,7 +924,7 @@ $('#v-home').addEventListener('click', e => {
 
 /* ================= 주문 적기 ================= */
 const SHIP_CHIPS = ['2026-11-16','2026-11-23','2026-11-30','2026-12-07'];
-const draft0 = () => ({ cid:null, phone:'', name:'', addr:'', items:{ b20:0, b10:0, y3:0, k10:0, k5:0 }, ship:'', gift:false, rname:'', rphone:'', raddr:'', consent:'', memo:'' });
+const draft0 = () => { const items = {}; PRODUCTS.forEach(p => items[p.id] = 0); return { cid:null, phone:'', name:'', addr:'', items, ship:'', gift:false, rname:'', rphone:'', raddr:'', consent:'', memo:'' }; };
 let D = draft0(), orderBuilt = false, lastSaved = null, showErr = false;
 function buildOrder(){
   $('#v-order').innerHTML = `
@@ -900,12 +950,12 @@ function buildOrder(){
           </div>
         </fieldset>
         <fieldset>
-          <legend>무엇을 몇 박스</legend>
-          <div class="prods">${PRODUCTS.map(p => `
-            <div class="prod" id="prod-${p.id}"><div><div class="pn">${p.name}</div><div class="pp">${won(p.price)}</div></div>
-              <div class="step"><button type="button" data-act="dec" data-pid="${p.id}" aria-label="${p.name} 한 박스 빼기">−</button><output id="q-${p.id}" aria-live="polite">0</output><button type="button" data-act="inc" data-pid="${p.id}" aria-label="${p.name} 한 박스 더하기">+</button></div></div>`).join('')}
+          <legend>무엇을 몇 ${mainUnit()}</legend>
+          <div class="prods">${activeProducts().map(p => `
+            <div class="prod" id="prod-${p.id}"><div><div class="pn">${esc(pname(p))}</div><div class="pp">${won(p.price)} / ${esc(p.unit)}${p.seasonal ? '' : ' · 연중'}</div></div>
+              <div class="step"><button type="button" data-act="dec" data-pid="${p.id}" aria-label="${esc(pname(p))} 하나 빼기">−</button><output id="q-${p.id}" aria-live="polite">0</output><button type="button" data-act="inc" data-pid="${p.id}" aria-label="${esc(pname(p))} 하나 더하기">+</button></div></div>`).join('')}
           </div>
-          <p class="muted small">가격은 시연용 예시예요.</p>
+          <p class="muted small">가격은 시연용 예시예요. 물건과 가격은 <button type="button" class="link-btn" data-act="to-settings">설정</button>에서 바꿔요.</p>
         </fieldset>
         <fieldset>
           <legend>언제 보낼까요</legend>
@@ -920,7 +970,7 @@ function buildOrder(){
         </fieldset>
         <fieldset>
           <legend>안내 문자 동의</legend>
-          <p class="script">통화 끝에 이렇게 여쭤 보세요. <q>내년 김장 때 안내 문자 보내 드려도 될까요?</q></p>
+          <p class="script">통화 끝에 이렇게 여쭤 보세요. <q>다음 ${esc(SEASON.name)} 때 안내 문자 보내 드려도 될까요?</q></p>
           <div id="consentHint"></div>
           <div class="seg" role="radiogroup" aria-label="안내 문자 동의">
             <label><input type="radio" name="consent" value="동의" ${D.consent === '동의' ? 'checked' : ''}><span>좋다고 하셨어요</span></label>
@@ -965,7 +1015,7 @@ function orderLinked(){
     : c.consent.status === '거부' ? `<p class="note bad small">전에 문자를 원하지 않는다고 하셨어요.</p>` : '';
 }
 function orderItems(){
-  PRODUCTS.forEach(p => { $('#q-' + p.id).textContent = D.items[p.id]; $('#prod-' + p.id).classList.toggle('on', D.items[p.id] > 0); });
+  activeProducts().forEach(p => { const q = $('#q-' + p.id); if (!q) return; q.textContent = D.items[p.id]; $('#prod-' + p.id).classList.toggle('on', D.items[p.id] > 0); });
   document.querySelectorAll('#shipChips .chip').forEach(b => b.setAttribute('aria-pressed', b.dataset.date === D.ship ? 'true' : 'false'));
 }
 function orderErrors(){
@@ -973,7 +1023,7 @@ function orderErrors(){
   if (digits(D.phone).length < 10) e.push('전화번호를 끝까지 적어 주세요');
   if (!D.name.trim()) e.push('이름을 적어 주세요');
   if (!D.addr.trim() && !D.gift) e.push('받으실 주소를 적어 주세요');
-  if (!PRODUCTS.some(p => D.items[p.id] > 0)) e.push('상품을 한 박스 이상 담아 주세요');
+  if (!PRODUCTS.some(p => D.items[p.id] > 0)) e.push('물건을 하나 이상 담아 주세요');
   if (D.gift && (!D.rname.trim() || !D.raddr.trim())) e.push('받는 분 이름과 주소를 적어 주세요');
   return e;
 }
@@ -986,16 +1036,17 @@ function orderSummary(){
     html += `<p class="note ok">${esc(lastSaved.name)}님 주문을 장부에 적었어요.</p><button class="btn wide" data-act="to-ledger">장부에서 보기</button>`;
   }
   html += `<div class="sum-lines">${D.name ? `<div><span>${esc(D.name)}</span><span class="muted num">${esc(D.phone)}</span></div>` : '<div class="muted">손님 정보를 적어 주세요</div>'}
-    ${lines.map(p => `<div><span>${p.name} × ${D.items[p.id]}</span><span class="num">${won(p.price * D.items[p.id])}</span></div>`).join('')}
+    ${lines.map(p => `<div><span>${esc(pname(p))} ${D.items[p.id]}${esc(p.unit)}</span><span class="num">${won(p.price * D.items[p.id])}</span></div>`).join('')}
     ${D.ship ? `<div><span class="muted">보낼 날</span><span>${mdw(D.ship)}</span></div>` : ''}
     ${D.gift && D.rname ? `<div><span class="muted">받는 분</span><span>${esc(D.rname)}</span></div>` : ''}</div>
-    <div class="sum-total"><span>${bx}박스</span><b>${won(total)}</b></div>
+    <div class="sum-total"><span>${sumUnit(lines, bx)}</span><b>${won(total)}</b></div>
     ${showErr && errs.length ? `<ul class="errs">${errs.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
     <button class="btn primary big wide" data-act="save">주문 저장</button>
     <button class="link-btn" data-act="reset" style="justify-self:center">처음부터 다시 적기</button>`;
   $('#sumAside').innerHTML = html;
-  $('#saveBar').innerHTML = `<div class="tot"><span class="small muted">${bx}박스${showErr && errs.length ? `, <span style="color:var(--bad)">${errs[0]}</span>` : ''}</span><b>${won(total)}</b></div><button class="btn primary" data-act="save" style="min-width:140px">주문 저장</button>`;
+  $('#saveBar').innerHTML = `<div class="tot"><span class="small muted">${sumUnit(lines, bx)}${showErr && errs.length ? `, <span style="color:var(--bad)">${errs[0]}</span>` : ''}</span><b>${won(total)}</b></div><button class="btn primary" data-act="save" style="min-width:140px">주문 저장</button>`;
 }
+const sumUnit = (lines, n) => { const us = [...new Set(lines.map(p => p.unit))]; return `${n}${us.length === 1 ? us[0] : us.length ? '개' : mainUnit()}`; };
 function orderDyn(){ orderSuggest(); orderLinked(); orderItems(); orderSummary(); }
 RENDER.order = function(opts){
   if (opts.cid){ D = draft0(); const c = CM.get(opts.cid); D.cid = c.id; D.phone = c.phone; D.name = c.name; D.addr = c.addr; D.consent = c.consent.status === '동의' ? '동의' : c.consent.status === '거부' ? '거부' : ''; orderBuilt = false; showErr = false; }
@@ -1005,19 +1056,17 @@ RENDER.order = function(opts){
 function flashEl(el){ if (!el) return; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
 function sampleText(){
   const S = stats();
-  const c = customers.find(x => { const s = S.get(x.id); return s.seasons.has(2025) && !s.seasons.has(2026) && s.seasons.has(2024) && !x.addr.includes('동 '); }) || customers[0];
-  return `안녕하세요 작년에도 주문했던 사람이에요\n${c.name} ${c.phone}\n절임배추 20키로 3박스 부탁드려요\n${c.addr}\n11월 22일쯤 받았으면 좋겠어요`;
+  const c = customers.find(x => { const s = S.get(x.id); return s.seasons.has(CUR - 1) && !s.seasons.has(CUR) && s.seasons.has(CUR - 2) && !x.addr.includes('동 '); }) || customers[0];
+  const p = activeProducts().find(x => x.seasonal) || activeProducts()[0];
+  const spec = p ? p.spec.replace(/kg/i, '키로') : '';
+  return `안녕하세요 작년에도 주문했던 사람이에요\n${c.name} ${c.phone}\n${p ? `${p.name} ${spec} 3${p.unit}` : '3박스'} 부탁드려요\n${c.addr}\n11월 22일쯤 받았으면 좋겠어요`;
 }
 function parsePaste(text){
   const done = [];
   const ph = text.match(/01[016789][-\s.]?\d{3,4}[-\s.]?\d{4}/);
   const lines = text.split(/\n/).map(s => s.trim()).filter(Boolean);
-  let pid = null;
-  if (/김치/.test(text)) pid = /10\s*(kg|키로|킬로)/i.test(text) ? 'k10' : 'k5';
-  else if (/양념/.test(text) && !/배추/.test(text)) pid = 'y3';
-  else if (/10\s*(kg|키로|킬로)/i.test(text)) pid = 'b10';
-  else if (/배추|20\s*(kg|키로|킬로)/i.test(text)) pid = 'b20';
-  const q = text.match(/(\d+)\s*(박스|상자|box)/i);
+  const mp = matchProduct(text), pid = mp ? mp.id : null;
+  const q = text.match(unitRe());
   const sd = text.match(/(\d{1,2})\s*월\s*(\d{1,2})\s*일/);
   const addr = lines.find(l => !/01[016789]/.test(l) && /\d/.test(l) && /(시|군|구)\s/.test(l) && /(로|길|동|읍|면)/.test(l));
   let nm = (text.match(/(?:이름|성함)\s*[:：]?\s*([가-힣]{2,4})/) || [])[1];
@@ -1029,7 +1078,7 @@ function parsePaste(text){
   }
   if (nm && !D.cid){ D.name = nm; $('#f-name').value = nm; flashEl($('#f-name')); done.push('이름'); }
   if (addr){ D.addr = addr; $('#f-addr').value = addr; flashEl($('#f-addr')); done.push('주소'); }
-  if (pid){ Object.keys(D.items).forEach(k => D.items[k] = 0); D.items[pid] = q ? Math.min(99, +q[1]) : 1; flashEl($('#prod-' + pid)); done.push(`${P[pid].name} ${D.items[pid]}박스`); }
+  if (pid){ Object.keys(D.items).forEach(k => D.items[k] = 0); D.items[pid] = q ? Math.min(99, +q[1]) : 1; flashEl($('#prod-' + pid)); done.push(`${pname(P[pid])} ${D.items[pid]}${P[pid].unit}`); }
   if (sd){ const s = iso(new Date(2026, +sd[1] - 1, +sd[2])); D.ship = s; $('#f-ship').value = s; flashEl($('#f-ship')); done.push(`보낼 날 ${md(s)}`); }
   return done;
 }
@@ -1068,11 +1117,12 @@ function onOrderClick(e){
     if (!txt){ r.className = 'note warn small'; r.textContent = '붙여 넣은 글이 없어요. 손님이 보낸 글을 위 칸에 붙여 넣어 주세요.'; return; }
     const done = parsePaste(txt); orderDyn();
     if (done.length){ r.className = 'note ok small'; r.textContent = `${done.join(', ')}을(를) 채웠어요. 노랗게 표시된 칸을 확인하고 저장하세요.`; }
-    else { r.className = 'note warn small'; r.textContent = "알아볼 수 있는 내용이 없어요. 전화번호나 '20kg 3박스'처럼 적힌 글을 붙여 넣어 주세요."; }
+    else { r.className = 'note warn small'; r.textContent = `알아볼 수 있는 내용이 없어요. 전화번호나 '${activeProducts()[0] ? pname(activeProducts()[0]) : '20kg'} 3${mainUnit()}'처럼 적힌 글을 붙여 넣어 주세요.`; }
   }
   else if (a === 'save') saveOrder();
   else if (a === 'reset'){ D = draft0(); showErr = false; lastSaved = null; buildOrder(); orderDyn(); window.scrollTo(0, 0); }
-  else if (a === 'to-ledger'){ L.season = '2026'; L.q = ''; ledgerBuilt = false; go('ledger'); }
+  else if (a === 'to-ledger'){ L.season = String(CUR); L.q = ''; ledgerBuilt = false; go('ledger'); }
+  else if (a === 'to-settings') go('settings');
 }
 vOrder.addEventListener('click', onOrderClick);
 $('#saveBar').addEventListener('click', onOrderClick);
@@ -1084,7 +1134,7 @@ function saveOrder(){
   else { c.name = D.name.trim(); if (D.addr.trim()) c.addr = D.addr.trim(); }
   if (D.consent === '동의' && c.consent.status !== '동의') c.consent = { status:'동의', date:TODAY_ISO, method:'전화 주문 때' };
   if (D.consent === '거부') c.consent = { status:'거부', date:TODAY_ISO, method:'전화 주문 때' };
-  const items = PRODUCTS.filter(p => D.items[p.id] > 0).map(p => ({ pid:p.id, qty:D.items[p.id] }));
+  const items = PRODUCTS.filter(p => D.items[p.id] > 0).map(p => ({ pid:p.id, qty:D.items[p.id], price:p.price }));
   const o = { id: nextOid++, cid: c.id, date: TODAY_ISO, items, recipient: D.gift ? { name:D.rname.trim(), phone:D.rphone, addr:D.raddr.trim() } : null,
     ship: D.ship || '', status:'접수', memo: D.memo.trim(), isNew:true };
   orders.unshift(o); SC = null;
@@ -1096,7 +1146,7 @@ function saveOrder(){
 /* ================= 장부 ================= */
 const L = { q:'', season:'all', limit:40 };
 let ledgerBuilt = false;
-const SEASON_CHIPS = [['all','전체'],['2026','2026 김장'],['2025','2025 김장'],['2024','2024 김장'],['off','김장철 밖 (김치)']];
+const seasonChips = () => [['all','전체']].concat(SEASON_YEARS().slice().reverse().map(y => [String(y), `${y} ${SEASON.name}`]), [['off', `${SEASON.name} 시즌 밖`]]);
 function ledgerRows(){
   const q = L.q.trim(), qd = digits(q);
   return orders.filter(o => {
@@ -1110,7 +1160,7 @@ function ledgerRows(){
 RENDER.ledger = function(){
   if (!ledgerBuilt){
     $('#v-ledger').innerHTML = `
-      <div class="view-head"><h1>주문 장부</h1><p>2024년부터 받은 주문이 모두 여기 있어요. 줄을 누르면 그 손님의 지난 주문이 보여요.</p></div>
+      <div class="view-head"><h1>주문 장부</h1><p>${TODAY.getFullYear() - 2}년부터 받은 주문이 모두 여기 있어요. 줄을 누르면 그 손님의 지난 주문이 보여요.</p></div>
       <div class="toolbar">
         <label class="search"><span class="sr">이름, 전화번호, 주소로 찾기</span><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="inp" id="l-q" type="search" placeholder="이름이나 전화번호 뒷자리" value="${esc(L.q)}" autocomplete="off"></label>
         <button class="btn" data-act="upload"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>엑셀 장부 올리기</button>
@@ -1125,15 +1175,15 @@ RENDER.ledger = function(){
 };
 function ledgerResults(){
   const all = orders;
-  $('#l-seasons').innerHTML = SEASON_CHIPS.map(([k, label]) => { const n = k === 'all' ? all.length : all.filter(o => k === 'off' ? seasonOf(o.date) === null : seasonOf(o.date) === +k).length; return `<button class="chip" data-season="${k}" aria-pressed="${L.season === k}">${label} <span class="cnt num">${n}</span></button>`; }).join('');
+  $('#l-seasons').innerHTML = seasonChips().map(([k, label]) => { const n = k === 'all' ? all.length : all.filter(o => k === 'off' ? seasonOf(o.date) === null : seasonOf(o.date) === +k).length; return `<button class="chip" data-season="${k}" aria-pressed="${L.season === k}">${label} <span class="cnt num">${n}</span></button>`; }).join('');
   const rows = ledgerRows();
-  $('#l-sum').innerHTML = `주문 <b>${rows.length}건</b>, <b>${rows.reduce((a, o) => a + boxes(o), 0)}박스</b>, 합계 <b>${won(rows.reduce((a, o) => a + amt(o), 0))}</b>`;
+  $('#l-sum').innerHTML = `주문 <b>${rows.length}건</b>, <b>${rows.reduce((a, o) => a + boxes(o), 0)}${mainUnit()}</b>, 합계 <b>${won(rows.reduce((a, o) => a + amt(o), 0))}</b>`;
   const shown = rows.slice(0, L.limit);
   if (!rows.length){ $('#l-list').innerHTML = `<p style="padding:24px">찾는 주문이 없어요. 이름 두 글자나 전화번호 뒷자리 네 개로 찾아 보세요.</p>`; return; }
-  const tr = o => { const c = CM.get(o.cid); return `<tr data-cid="${c.id}" class="${o.isNew ? 'is-new' : ''}"><td class="d">${dot(o.date)}</td><td class="who"><b>${esc(c.name)}</b>${o.recipient ? `<span class="gift">받는 분 ${esc(o.recipient.name)}</span>` : ''}</td><td class="d">${c.phone}</td><td>${o.items.map(i => `${P[i.pid].name} <b class="num">${i.qty}</b>`).join('<br>')}</td><td class="r">${won(amt(o))}</td><td class="d">${o.ship ? dot(o.ship).slice(5) : '<span class="muted">미정</span>'}</td><td>${statusPill(o.status)}</td></tr>`; };
+  const tr = o => { const c = CM.get(o.cid); return `<tr data-cid="${c.id}" class="${o.isNew ? 'is-new' : ''}"><td class="d">${dot(o.date)}</td><td class="who"><b>${esc(c.name)}</b>${o.recipient ? `<span class="gift">받는 분 ${esc(o.recipient.name)}</span>` : ''}</td><td class="d">${c.phone}</td><td>${o.items.map(i => `${esc(pname(P[i.pid]))} <b class="num">${i.qty}</b>${esc(P[i.pid].unit)}`).join('<br>')}</td><td class="r">${won(amt(o))}</td><td class="d">${o.ship ? dot(o.ship).slice(5) : '<span class="muted">미정</span>'}</td><td>${statusPill(o.status)}</td></tr>`; };
   const card = o => { const c = CM.get(o.cid); return `<li><button class="lcard ${o.isNew ? 'is-new' : ''}" data-cid="${c.id}"><span class="r1"><b>${esc(c.name)}</b><span class="num muted">${dot(o.date)}</span></span><span class="r2">${c.phone}${o.recipient ? `, 받는 분 ${esc(o.recipient.name)}` : ''}</span><span>${esc(itemsText(o))}</span><span class="r3"><span class="num">${won(amt(o))}</span>${statusPill(o.status)}</span></button></li>`; };
   $('#l-list').innerHTML = `
-    <div class="desk-only scroll-x"><table class="tbl"><thead><tr><th>주문일</th><th>주문자</th><th>전화번호</th><th>상품과 박스</th><th class="r">금액</th><th>보낼 날</th><th>상태</th></tr></thead><tbody>${shown.map(tr).join('')}</tbody></table></div>
+    <div class="desk-only scroll-x"><table class="tbl"><thead><tr><th>주문일</th><th>주문자</th><th>전화번호</th><th>물건과 수량</th><th class="r">금액</th><th>보낼 날</th><th>상태</th></tr></thead><tbody>${shown.map(tr).join('')}</tbody></table></div>
     <ul class="lcards mob-only">${shown.map(card).join('')}</ul>
     ${rows.length > L.limit ? `<div class="more"><button class="btn" data-act="more">${Math.min(40, rows.length - L.limit)}건 더 보기</button></div>` : ''}`;
 }
@@ -1152,7 +1202,7 @@ vLedger.addEventListener('click', e => {
 });
 function copyLedger(){
   const rows = ledgerRows();
-  const head = ['주문일','이름','전화번호','주소','상품','박스','금액','보낼 날','상태','택배사','송장번호','받는 분','문자 동의'];
+  const head = ['주문일','이름','전화번호','주소','물건','수량','금액','보낼 날','상태','택배사','송장번호','받는 분','문자 동의'];
   const lines = [head.join('\t')].concat(rows.map(o => { const c = CM.get(o.cid); return [o.date, c.name, c.phone, c.addr, itemsText(o), boxes(o), amt(o), o.ship, o.status, o.track ? CN[o.track.courier] : '', o.track ? o.track.no : '', o.recipient ? o.recipient.name : '', c.consent.status].join('\t'); }));
   const text = lines.join('\n');
   const fallback = () => {
@@ -1163,19 +1213,21 @@ function copyLedger(){
 }
 function openUpload(){
   const S = stats();
-  const c = customers.find(x => st(x).seasons.has(2024) && x.addr.startsWith('광주')) || customers[0];
-  const o = st(c).orders.filter(x => seasonOf(x.date) === 2024)[0] || st(c).orders[0];
+  const Y2 = CUR - 2;
+  const c = customers.find(x => st(x).seasons.has(Y2) && x.addr.startsWith('광주')) || customers[0];
+  const o = st(c).orders.filter(x => seasonOf(x.date) === Y2)[0] || st(c).orders[0];
+  const p0 = activeProducts()[0];
   openSheet(`
     <div class="sheet-top"><h2 id="sheetTitle">엑셀 장부 올리기</h2><button class="x" data-act="close" aria-label="닫기">×</button></div>
     <p>쓰시던 엑셀 파일을 그대로 올리면 칸을 알아서 맞춰 넣어요. 아래는 예시 파일로 보여 드리는 화면이에요.</p>
-    <div class="panel" style="display:flex;gap:14px;align-items:center"><svg viewBox="0 0 24 24" width="40" height="40" style="fill:none;stroke:var(--accent);stroke-width:1.8;flex:none"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12l6 6M15 12l-6 6"/></svg><div><b>2024 김장 주문.xlsx</b><div class="muted small">예시 파일, 줄 ${seasonSum(2024).n + 6}개</div></div></div>
+    <div class="panel" style="display:flex;gap:14px;align-items:center"><svg viewBox="0 0 24 24" width="40" height="40" style="fill:none;stroke:var(--accent);stroke-width:1.8;flex:none"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12l6 6M15 12l-6 6"/></svg><div><b>${Y2} ${esc(SEASON.name)} 주문.xlsx</b><div class="muted small">예시 파일, 줄 ${seasonSum(Y2).n + 6}개</div></div></div>
     <h3>엑셀 칸을 이렇게 맞춰 넣었어요</h3>
     <div class="scroll-x"><table class="map-tbl"><thead><tr><th>엑셀에 적힌 칸</th><th>장부에 들어갈 곳</th><th>첫 줄 예시</th></tr></thead><tbody>
       <tr><td>주문자</td><td class="to">이름</td><td>${esc(c.name)}</td></tr>
       <tr><td>연락처</td><td class="to">전화번호</td><td class="num">${c.phone.replace(/-/g, '')}</td></tr>
       <tr><td>배송지</td><td class="to">주소</td><td>${esc(region(c.addr))} …</td></tr>
-      <tr><td>품목</td><td class="to">상품</td><td>절임20</td></tr>
-      <tr><td>수량</td><td class="to">박스</td><td class="num">${o ? boxes(o) : 2}</td></tr>
+      <tr><td>품목</td><td class="to">물건</td><td>${p0 ? esc(p0.name.slice(0, 2) + (p0.spec.match(/\d+/) || [''])[0]) : '절임20'}</td></tr>
+      <tr><td>수량</td><td class="to">${esc(mainUnit())}</td><td class="num">${o ? boxes(o) : 2}</td></tr>
       <tr><td>입금액</td><td class="to">금액</td><td class="num">${o ? amt(o) : 90000}</td></tr>
       <tr><td>비고</td><td class="to">메모</td><td>경비실</td></tr>
     </tbody></table></div>
@@ -1191,18 +1243,18 @@ function openUpload(){
 /* ================= 손님 ================= */
 const CU = { seg:'all', q:'', limit:30 };
 let custBuilt = false;
-const SEGS = [
+const segs = () => [
   { id:'all', label:'모든 손님', desc:'장부에 있는 모든 분', f:() => true },
-  { id:'lapsing', label:'작년 손님, 올해 아직', desc:'작년 김장 때 사셨는데 올해 주문이 없는 분', f:s => s.seasons.has(2025) && !s.seasons.has(2026) },
-  { id:'loyal', label:'두 해 연속 단골', desc:'2024년과 2025년 김장 모두 사신 분', f:s => s.seasons.has(2024) && s.seasons.has(2025) },
-  { id:'new', label:'올해 처음 오신 분', desc:'올해 김장이 첫 주문인 분', f:s => s.first && seasonOf(s.first) === 2026 },
-  { id:'big', label:'많이 사시는 분', desc:'한 해에 5박스 넘게 사신 적 있는 분', f:s => s.maxBox >= 5 },
+  { id:'lapsing', label:'작년 손님, 올해 아직', desc:`작년 ${SEASON.name} 때 사셨는데 올해 주문이 없는 분`, f:s => s.seasons.has(CUR - 1) && !s.seasons.has(CUR) },
+  { id:'loyal', label:'두 해 연속 단골', desc:`${CUR - 2}년과 ${CUR - 1}년 ${SEASON.name} 모두 사신 분`, f:s => s.seasons.has(CUR - 2) && s.seasons.has(CUR - 1) },
+  { id:'new', label:'올해 처음 오신 분', desc:`올해 ${SEASON.name}이 첫 주문인 분`, f:s => s.first && seasonOf(s.first) === CUR },
+  { id:'big', label:'많이 사시는 분', desc:`한 해에 5${mainUnit()} 넘게 사신 적 있는 분`, f:s => s.maxBox >= 5 },
   { id:'agree', label:'문자 동의하신 분', desc:'판매 안내 문자를 받겠다고 하신 분', f:(s, c) => c.consent.status === '동의' }
 ];
 RENDER.customers = function(){
   if (!custBuilt){
     $('#v-customers').innerHTML = `
-      <div class="view-head"><h1>손님</h1><p>장부를 손님별로 묶었어요. 칸이 칠해진 해가 그 손님이 김장 주문을 하신 해예요.</p></div>
+      <div class="view-head"><h1>손님</h1><p>장부를 손님별로 묶었어요. 칸이 칠해진 해가 그 손님이 ${esc(SEASON.name)} 주문을 하신 해예요.</p></div>
       <div class="segs" id="c-segs"></div>
       <label class="search"><span class="sr">손님 찾기</span><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="inp" id="c-q" type="search" placeholder="이름, 전화번호, 지역으로 찾기" value="${esc(CU.q)}" autocomplete="off"></label>
       <p class="result-line" id="c-sum"></p>
@@ -1212,17 +1264,17 @@ RENDER.customers = function(){
   custResults();
 };
 function custResults(){
-  const S = stats();
+  const S = stats(), SEGS = segs();
   $('#c-segs').innerHTML = SEGS.map(g => { const n = customers.filter(c => g.f(S.get(c.id), c)).length; return `<button class="segbtn" data-seg="${g.id}" aria-pressed="${CU.seg === g.id}"><span class="n">${n}<small>분</small></span><span class="t">${g.label}</span><span class="dsc">${g.desc}</span></button>`; }).join('');
   const seg = SEGS.find(g => g.id === CU.seg) || SEGS[0];
   const q = CU.q.trim(), qd = digits(q);
   let list = customers.filter(c => seg.f(S.get(c.id), c) && (!q || c.name.includes(q) || c.addr.includes(q) || (qd.length >= 3 && digits(c.phone).includes(qd))));
-  if (CU.seg === 'lapsing') list.sort((a, b) => ((S.get(b.id).boxes[2025] || 0) - (S.get(a.id).boxes[2025] || 0)));
+  if (CU.seg === 'lapsing') list.sort((a, b) => ((S.get(b.id).boxes[CUR - 1] || 0) - (S.get(a.id).boxes[CUR - 1] || 0)));
   else list.sort((a, b) => (S.get(b.id).last || '').localeCompare(S.get(a.id).last || ''));
   $('#c-sum').innerHTML = `<b>${seg.label}</b> <b>${list.length}분</b>${CU.seg === 'lapsing' ? ', 작년에 많이 사신 순서' : ', 최근 주문 순서'}`;
   const shown = list.slice(0, CU.limit);
   $('#c-list').innerHTML = shown.length ? shown.map(c => { const s = S.get(c.id); const tb = Object.values(s.boxes).reduce((a, b) => a + b, 0) + s.orders.filter(o => seasonOf(o.date) === null).reduce((a, o) => a + boxes(o), 0);
-    return `<li><button class="ccard" data-cid="${c.id}"><span><span class="nm">${esc(c.name)}</span><br><span class="ph">${c.phone}, ${esc(region(c.addr))}</span></span>${stripHTML(s)}<span class="st">${s.orders.length}번 주문, 모두 ${tb}박스<br>마지막 ${s.last ? dot(s.last) : '-'}</span>${consentPill(c)}</button></li>`; }).join('')
+    return `<li><button class="ccard" data-cid="${c.id}"><span><span class="nm">${esc(c.name)}</span><br><span class="ph">${c.phone}, ${esc(region(c.addr))}</span></span>${stripHTML(s)}<span class="st">${s.orders.length}번 주문, 모두 ${tb}${mainUnit()}<br>마지막 ${s.last ? dot(s.last) : '-'}</span>${consentPill(c)}</button></li>`; }).join('')
     + (list.length > CU.limit ? `<li class="more"><button class="btn" data-act="cmore">${Math.min(30, list.length - CU.limit)}분 더 보기</button></li>` : '')
     : `<li style="padding:24px">맞는 손님이 없어요. 다른 묶음을 고르거나 검색어를 줄여 보세요.</li>`;
 }
@@ -1247,7 +1299,7 @@ function openCustomer(cid){
        <div class="chips"><button class="chip" data-act="c-set" data-v="동의" data-m="전화로">전화로</button><button class="chip" data-act="c-set" data-v="동의" data-m="카톡 채널 추가">카톡 채널 추가</button><button class="chip" data-act="c-set" data-v="동의" data-m="종이 주문서">종이 주문서</button><button class="chip" data-act="c-set" data-v="거부">싫다고 하심</button></div>`;
   openSheet(`
     <div class="sheet-top"><div><h2 id="sheetTitle">${esc(c.name)}</h2><p class="muted">${s.seasons.size >= 2 ? '여러 해 오신 단골' : os.length > 1 ? '두 번 넘게 주문하신 손님' : '한 번 주문하신 손님'}</p></div><button class="x" data-act="close" aria-label="닫기">×</button></div>
-    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">${stripHTML(s, true)}<span class="muted num">${os.length}번 주문, ${tb}박스, ${won(s.amount)}</span></div>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">${stripHTML(s, true)}<span class="muted num">${os.length}번 주문, ${tb}${mainUnit()}, ${won(s.amount)}</span></div>
     <dl class="kv">
       <dt>전화번호</dt><dd class="num">${c.phone} <button class="link-btn small" data-act="copy-phone" data-phone="${c.phone}">복사</button></dd>
       <dt>주소</dt><dd>${esc(c.addr)}</dd>
@@ -1279,48 +1331,53 @@ $('#sheet').addEventListener('click', e => {
 /* ================= 안내 보내기 ================= */
 const REGIONS = ['서울','경기','인천','부산','대구','광주','대전','울산','세종','전남','전북','경남','경북','충남','충북','강원','제주','해남','목포','순천','여수'];
 const COND = {
-  season: y => ({ key:'s' + y, label:`${yLabel(y)}(${y}) 김장 때 사신 분`, f:s => s.seasons.has(y) }),
+  season: y => ({ key:'s' + y, label:`${yLabel(y)}(${y}) ${SEASON.name} 때 사신 분`, f:s => s.seasons.has(y) }),
   notSeason: y => ({ key:'n' + y, label:`${yLabel(y)}은 아직 주문 없음`, f:s => !s.seasons.has(y) }),
-  loyal: () => ({ key:'loyal', label:'2024, 2025 두 해 연속 사신 분', f:s => s.seasons.has(2024) && s.seasons.has(2025) }),
-  minBox: (y, n) => ({ key:`b${y}_${n}`, label: y ? `${yLabel(y)} ${n}박스 이상` : `한 해 ${n}박스 이상`, f:s => (y ? (s.boxes[y] || 0) : s.maxBox) >= n }),
+  loyal: () => ({ key:'loyal', label:`${CUR - 2}, ${CUR - 1} 두 해 연속 사신 분`, f:s => s.seasons.has(CUR - 2) && s.seasons.has(CUR - 1) }),
+  minBox: (y, n) => ({ key:`b${y}_${n}`, label: y ? `${yLabel(y)} ${n}${mainUnit()} 이상` : `한 해 ${n}${mainUnit()} 이상`, f:s => (y ? (s.boxes[y] || 0) : s.maxBox) >= n }),
   kind: k => ({ key:'k' + k, label:`${k} 사 가신 적 있음`, f:s => s.kinds.has(k) }),
-  pid: p => ({ key:'p' + p, label:`${P[p].name} 사 가신 적 있음`, f:s => s.pids.has(p) }),
+  pid: p => ({ key:'p' + p, label:`${pname(P[p])} 사 가신 적 있음`, f:s => s.pids.has(p) }),
   region: rs => ({ key:'r' + rs.join(), label:`${rs.join(', ')} 사시는 분`, f:(s, c) => rs.some(r => c.addr.includes(r)) }),
   once: () => ({ key:'once', label:'딱 한 번 주문하신 분', f:s => s.orders.length === 1 }),
   gift: () => ({ key:'gift', label:'선물로 보내신 적 있음', f:s => s.gift })
 };
-const PRESETS = [
-  { id:'p1', label:'작년에 사셨는데 올해 아직 안 오신 분', conds:() => [COND.season(2025), COND.notSeason(2026)], type:'ad' },
+// 네 번째 프리셋은 시즌 상품이 아닌 물건(연중 파는 것) 중 첫 번째를 씀. 없으면 첫 물건
+const offSeasonName = () => { const p = PRODUCTS.find(x => !x.seasonal) || PRODUCTS[0]; return p ? p.name : ''; };
+const presets = () => [
+  { id:'p1', label:'작년에 사셨는데 올해 아직 안 오신 분', conds:() => [COND.season(CUR - 1), COND.notSeason(CUR)], type:'ad' },
   { id:'p2', label:'두 해 연속 사신 단골', conds:() => [COND.loyal()], type:'ad' },
-  { id:'p3', label:'작년에 5박스 이상 사신 분', conds:() => [COND.minBox(2025, 5)], type:'ad' },
-  { id:'p4', label:'김치 사 가신 적 있는 분', conds:() => [COND.kind('김치')], type:'ad' },
-  { id:'p5', label:'올해 주문하신 분께 배송 안내', conds:() => [COND.season(2026)], type:'info' }
+  { id:'p3', label:`작년에 5${mainUnit()} 이상 사신 분`, conds:() => [COND.minBox(CUR - 1, 5)], type:'ad' },
+  { id:'p4', label:`${offSeasonName()} 사 가신 적 있는 분`, conds:() => [COND.kind(offSeasonName())], type:'ad' },
+  { id:'p5', label:'올해 주문하신 분께 배송 안내', conds:() => [COND.season(CUR)], type:'info' }
 ];
 function parseNL(text){
   const t = text.replace(/\s+/g, ' ').trim(); const conds = []; let ref = null;
-  const has24 = /재작년|2024/.test(t); const t2 = t.replace(/재작년|2024/g, '');
-  const has25 = /작년|지난해|2025/.test(t2);
+  const Y0 = CUR, Y1 = CUR - 1, Y2 = CUR - 2;
+  const has24 = new RegExp(`재작년|${Y2}`).test(t); const t2 = t.replace(new RegExp(`재작년|${Y2}`, 'g'), '');
+  const has25 = new RegExp(`작년|지난해|${Y1}`).test(t2);
   const not26 = /올해.{0,10}(아직|안 |안오|안사|않|없|못)/.test(t);
   const yes26 = !not26 && /올해/.test(t) && /(주문|사신|산 |오신|하신)/.test(t);
   if (/연속|단골|두\s*해|2년|매년/.test(t)) conds.push(COND.loyal());
-  else { if (has24){ conds.push(COND.season(2024)); ref = 2024; } if (has25){ conds.push(COND.season(2025)); ref = 2025; } }
-  if (not26) conds.push(COND.notSeason(2026));
-  if (yes26){ conds.push(COND.season(2026)); ref = ref || 2026; }
-  const bx = t.match(/(\d+)\s*(박스|상자)/); if (bx) conds.push(COND.minBox(ref, +bx[1]));
-  if (/김치/.test(t)) conds.push(COND.kind('김치'));
-  if (/양념/.test(t)) conds.push(COND.kind('양념'));
-  if (/10\s*(kg|키로|킬로)/i.test(t) && !/김치/.test(t)) conds.push(COND.pid('b10'));
-  if (/20\s*(kg|키로|킬로)/i.test(t)) conds.push(COND.pid('b20'));
+  else { if (has24){ conds.push(COND.season(Y2)); ref = Y2; } if (has25){ conds.push(COND.season(Y1)); ref = Y1; } }
+  if (not26) conds.push(COND.notSeason(Y0));
+  if (yes26){ conds.push(COND.season(Y0)); ref = ref || Y0; }
+  const bx = t.match(unitRe()); if (bx) conds.push(COND.minBox(ref, +bx[1]));
+  // 물건: 규격까지 맞으면 그 물건, 이름만 맞으면 같은 이름 전부
+  const hits = PRODUCTS.map(p => ({ p, sc: productScore(p, t) })).filter(x => x.sc >= 1.5).sort((a, b) => b.sc - a.sc);
+  const named = new Set();
+  hits.forEach(({ p, sc }) => { if (sc >= 2.5) conds.push(COND.pid(p.id)); else if (!named.has(p.name) && !hits.some(h => h.p.name === p.name && h.sc >= 2.5)){ named.add(p.name); conds.push(COND.kind(p.name)); } });
   const regs = REGIONS.filter(r => t.includes(r)); if (regs.length) conds.push(COND.region(regs));
   if (/한\s*번만|딱\s*한\s*번/.test(t)) conds.push(COND.once());
   if (/선물/.test(t)) conds.push(COND.gift());
   const seen = new Set(); return conds.filter(c => seen.has(c.key) ? false : seen.add(c.key));
 }
-const TPL = {
-  ad: '[해남농원] 해남 땅끝에서 인사드립니다.\n올해도 해남 배추를 정성껏 절여 보내 드려요.\n\n절임배추 20kg 45,000원\n11월 16일부터 주문 순서대로 발송\n\n주문은 전화나 문자로 주세요.\n061-000-0000',
-  info: '[해남농원] {이름}님, 주문하신 절임배추는 {보낼날}에 보내 드릴 예정이에요.\n받으시는 날 댁에 계신지 확인 부탁드려요.\n문의 061-000-0000'
-};
-const C = { conds:[], preset:null, type:'ad', text:TPL.ad, edited:false, mode:'now', confirm:false, nl:'', history:[], parsedMsg:'' };
+// 문구 초안: 가게 이름, 시즌 물건, 가격을 설정에서 가져와 만듦
+function tpl(type){
+  const ps = activeProducts().filter(p => p.seasonal); const list = (ps.length ? ps : activeProducts()).slice(0, 2);
+  if (type === 'info') return `[${SHOP.name}] {이름}님, 주문하신 ${list[0] ? list[0].name : '물건'}은 {보낼날}에 보내 드릴 예정이에요.\n받으시는 날 댁에 계신지 확인 부탁드려요.\n문의 ${SHOP.phone}`;
+  return `[${SHOP.name}] 안녕하세요, ${SHOP.name}입니다.\n올해도 ${SEASON.name} 준비 정성껏 도와 드릴게요.\n\n${list.map(p => `${pname(p)} ${won(p.price)}`).join('\n')}\n${SHIP_CHIPS[0] ? md(SHIP_CHIPS[0]) : ''}부터 주문 순서대로 발송\n\n주문은 전화나 문자로 주세요.\n${SHOP.phone}`;
+}
+const C = { conds:[], preset:null, type:'ad', text:tpl('ad'), edited:false, mode:'now', confirm:false, nl:'', history:[], parsedMsg:'' };
 function audience(){
   if (!C.conds.length) return null;
   const S = stats();
@@ -1334,11 +1391,11 @@ const isNight = () => { const h = new Date().getHours(); return h >= 21 || h < 8
 function finalText(c){
   let t = C.text;
   if (C.type === 'info'){
-    const S = stats(); const o = c ? S.get(c.id).orders.filter(x => seasonOf(x.date) === 2026).sort((a, b) => b.date.localeCompare(a.date))[0] : null;
+    const S = stats(); const o = c ? S.get(c.id).orders.filter(x => seasonOf(x.date) === CUR).sort((a, b) => b.date.localeCompare(a.date))[0] : null;
     t = t.replace(/\{이름\}/g, c ? c.name : '김영희').replace(/\{보낼날\}/g, o && o.ship ? md(o.ship) : '11월 16일');
     return esc(t);
   }
-  return `<span class="auto">(광고)</span>${esc(t)}\n<span class="auto">무료수신거부 080-000-0000</span>`;
+  return `<span class="auto">(광고)</span>${esc(t)}\n<span class="auto">무료수신거부 ${esc(SHOP.optout)}</span>`;
 }
 RENDER.send = function(){
   $('#v-send').innerHTML = `
@@ -1347,7 +1404,7 @@ RENDER.send = function(){
       <div style="display:grid;gap:22px;min-width:0">
         <div class="panel" style="display:grid;gap:14px">
           <h2>누구에게 보낼까요?</h2>
-          <div class="presets">${PRESETS.map(p => `<button class="preset" data-preset="${p.id}" aria-pressed="false">${p.label}</button>`).join('')}</div>
+          <div class="presets">${presets().map(p => `<button class="preset" data-preset="${p.id}" aria-pressed="false">${p.label}</button>`).join('')}</div>
           <div class="field"><label for="s-nl">말로 적어도 돼요</label>
             <div class="nl"><input class="inp" id="s-nl" placeholder="예: 작년에 3박스 이상 사셨는데 올해 아직 안 오신 서울 손님" value="${esc(C.nl)}" autocomplete="off"><button class="btn primary" data-act="nl">손님 찾기</button></div></div>
           <p id="s-nlmsg" class="note warn small" hidden></p>
@@ -1370,7 +1427,7 @@ RENDER.send = function(){
         </div>
       </div>
       <div style="display:grid;gap:22px;align-content:start;min-width:0">
-        <div class="panel" style="display:grid;gap:12px;justify-items:center"><h2 style="justify-self:start">받는 분 휴대폰에는</h2><div class="phone"><div class="from">해남농원</div><div class="bubble" id="s-preview"></div></div><p class="muted small" style="justify-self:start">노란 부분은 법에 따라 자동으로 붙어요.</p></div>
+        <div class="panel" style="display:grid;gap:12px;justify-items:center"><h2 style="justify-self:start">받는 분 휴대폰에는</h2><div class="phone"><div class="from">${esc(SHOP.name)}</div><div class="bubble" id="s-preview"></div></div><p class="muted small" style="justify-self:start">노란 부분은 법에 따라 자동으로 붙어요.</p></div>
         <div class="panel" style="display:grid;gap:10px"><h2>보낸 안내</h2><ul class="hist" id="s-hist"></ul></div>
       </div>
     </div>`;
@@ -1395,7 +1452,7 @@ function sendDyn(){
   $('#s-typehelp').textContent = C.type === 'ad' ? '동의하신 분께만 가요. 맨 앞에 (광고), 맨 끝에 수신거부 번호가 자동으로 붙어요.' : '광고가 아닌 주문 관련 연락이라 동의 없이 보낼 수 있어요. {이름}, {보낼날}은 손님마다 바뀌어 들어가요.';
   const sample = A && A.send.length ? A.send[0] : null;
   $('#s-preview').innerHTML = finalText(sample);
-  const plain = C.type === 'ad' ? '(광고)' + C.text + '\n무료수신거부 080-000-0000' : C.text;
+  const plain = C.type === 'ad' ? '(광고)' + C.text + '\n무료수신거부 ' + SHOP.optout : C.text;
   const by = bytesOf(plain);
   $('#s-bytes').innerHTML = `<span>${by > 2000 ? '<b style="color:var(--bad)">너무 길어요 (2,000바이트까지)</b>' : by > 90 ? '장문 문자 (LMS)' : '단문 문자 (SMS)'}</span><span class="num">${by.toLocaleString()} / ${by > 90 ? '2,000' : '90'}바이트</span>`;
   const night = C.type === 'ad' && C.mode === 'now' && isNight();
@@ -1409,7 +1466,7 @@ function sendDyn(){
 const vSend = $('#v-send');
 vSend.addEventListener('click', e => {
   const pr = e.target.closest('[data-preset]');
-  if (pr){ const p = PRESETS.find(x => x.id === pr.dataset.preset); C.preset = p.id; C.conds = p.conds(); setType(p.type); C.confirm = false; $('#s-nlmsg').hidden = true; sendDyn(); return; }
+  if (pr){ const p = presets().find(x => x.id === pr.dataset.preset); C.preset = p.id; C.conds = p.conds(); setType(p.type); C.confirm = false; $('#s-nlmsg').hidden = true; sendDyn(); return; }
   const rm = e.target.closest('[data-rm]'); if (rm){ C.conds = C.conds.filter(k => k.key !== rm.dataset.rm); C.preset = null; C.confirm = false; sendDyn(); return; }
   const md_ = e.target.closest('[data-mode]'); if (md_){ C.mode = md_.dataset.mode; document.querySelectorAll('#v-send [data-mode]').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === C.mode)); C.confirm = false; sendDyn(); return; }
   const b = e.target.closest('[data-act]'); if (!b) return;
@@ -1418,18 +1475,18 @@ vSend.addEventListener('click', e => {
   else if (b.dataset.act === 'send-cancel'){ C.confirm = false; sendDyn(); }
   else if (b.dataset.act === 'send-ok'){
     const A = audience();
-    const label = C.preset ? PRESETS.find(p => p.id === C.preset).label : C.conds.map(k => k.label).join(', ');
+    const label = C.preset ? presets().find(p => p.id === C.preset).label : C.conds.map(k => k.label).join(', ');
     C.history.unshift({ label, count:A.send.length, type:C.type, when: C.mode === 'now' ? `${md(TODAY_ISO)} 보냄` : `${md('2026-10-04')} 오전 10시 예약` });
     C.confirm = false; sendDyn();
     toast(`시연 화면이라 실제로 보내지는 않았어요. 실제 서비스에서는 ${A.send.length}분께 ${C.mode === 'now' ? '바로' : '예약한 시간에'} 나가요`);
   }
 });
-function setType(t){ C.type = t; if (!C.edited) C.text = TPL[t]; const ta = $('#s-text'); if (ta) ta.value = C.text; document.querySelectorAll('#v-send input[name="mtype"]').forEach(r => r.checked = r.value === t); }
+function setType(t){ C.type = t; if (!C.edited) C.text = tpl(t); const ta = $('#s-text'); if (ta) ta.value = C.text; document.querySelectorAll('#v-send input[name="mtype"]').forEach(r => r.checked = r.value === t); }
 function runNL(){
   const v = $('#s-nl').value.trim(); C.nl = v; const m = $('#s-nlmsg');
   if (!v){ m.hidden = false; m.textContent = '어떤 손님에게 보낼지 적어 주세요.'; return; }
   const conds = parseNL(v);
-  if (!conds.length){ m.hidden = false; m.textContent = "알아듣지 못했어요. '작년에 사셨는데 올해 아직 안 오신 분'처럼 언제, 무엇을, 몇 박스, 어느 지역인지 넣어 적어 보세요."; return; }
+  if (!conds.length){ m.hidden = false; m.textContent = `알아듣지 못했어요. '작년에 사셨는데 올해 아직 안 오신 분'처럼 언제, 무엇을, 몇 ${mainUnit()}, 어느 지역인지 넣어 적어 보세요.`; return; }
   m.hidden = true; C.conds = conds; C.preset = null; C.confirm = false; sendDyn();
 }
 vSend.addEventListener('keydown', e => { if (e.target.id === 's-nl' && e.key === 'Enter'){ e.preventDefault(); runNL(); } });
@@ -1612,7 +1669,114 @@ vShip.addEventListener('click', async e => {
 vShip.addEventListener('keydown', e => { if (e.target.id === 'sh-no' && e.key === 'Enter'){ e.preventDefault(); doLookup(); } });
 vShip.addEventListener('change', e => { if (e.target.id === 'sh-notify') SH.notify = e.target.checked; });
 
+/* ================= 설정: 우리 가게, 시즌, 파는 물건 ================= */
+// 설정이 바뀌면 집계와 화면을 다시 만든다. 지난 주문은 그대로 둔다.
+function applyShop(){
+  document.querySelectorAll('.brand-name').forEach(el => el.textContent = SHOP.name);
+  document.querySelectorAll('.brand-sub').forEach(el => el.textContent = SHOP.sub);
+  document.title = `${SHOP.name} ${SHOP.sub}`;
+}
+function invalidate(){
+  recalcCur(); SC = null; orderBuilt = false; ledgerBuilt = false; custBuilt = false; shipBuilt = false;
+  const keep = D; D = draft0(); Object.keys(D.items).forEach(k => { if (keep.items[k]) D.items[k] = keep.items[k]; }); Object.assign(D, { cid:keep.cid, phone:keep.phone, name:keep.name, addr:keep.addr, ship:keep.ship, gift:keep.gift, rname:keep.rname, rphone:keep.rphone, raddr:keep.raddr, consent:keep.consent, memo:keep.memo });
+  if (!C.edited) C.text = tpl(C.type);
+  if (C.preset){ const pr = presets().find(x => x.id === C.preset); if (pr) C.conds = pr.conds(); }
+  if (!L.season.match(/^(all|off)$/) && !SEASON_YEARS().includes(+L.season)) L.season = 'all';
+  applyShop();
+}
+const monthOpts = sel => Array.from({ length:12 }, (_, i) => i + 1).map(m => `<option value="${m}" ${m === sel ? 'selected' : ''}>${m}월</option>`).join('');
+RENDER.settings = function(){
+  const U = mainUnit();
+  $('#v-settings').innerHTML = `
+    <div class="view-head"><h1>설정</h1><p>파는 물건과 시즌은 가게마다 달라요. 여기서 정하면 주문 적기, 손님 묶음, 안내 문구가 모두 따라 바뀌어요.</p></div>
+    <div class="set-grid">
+      <div class="panel" style="display:grid;gap:14px">
+        <h2>우리 가게</h2>
+        <div class="two">
+          <div class="field"><label for="st-name">가게 이름</label><input class="inp" id="st-name" value="${esc(SHOP.name)}" autocomplete="off"></div>
+          <div class="field"><label for="st-phone">주문 받는 전화</label><input class="inp num" id="st-phone" inputmode="tel" value="${esc(SHOP.phone)}" autocomplete="off"></div>
+        </div>
+        <div class="field"><label for="st-optout">무료 수신거부 번호</label><input class="inp num" id="st-optout" inputmode="tel" value="${esc(SHOP.optout)}" autocomplete="off">
+          <p class="muted small">판매 안내 문자 끝에 자동으로 붙어요. 080 번호는 문자 발송 대행사에서 받아요.</p></div>
+      </div>
+      <div class="panel" style="display:grid;gap:14px">
+        <h2>시즌</h2>
+        <p class="muted small">한 해 중 주문이 몰리는 때예요. "작년 시즌 손님"이나 손님별 시즌 칸이 이 설정을 따라요. 김장, 설 선물, 추석 선물, 수확철처럼 가게마다 달라요.</p>
+        <div class="field"><label for="se-name">시즌 이름</label><input class="inp" id="se-name" value="${esc(SEASON.name)}" placeholder="예: 김장, 설 선물, 추석" autocomplete="off"></div>
+        <div class="two">
+          <div class="field"><label for="se-start">시작 달</label><select class="inp" id="se-start">${monthOpts(SEASON.start)}</select></div>
+          <div class="field"><label for="se-end">끝나는 달</label><select class="inp" id="se-end">${monthOpts(SEASON.end)}</select></div>
+        </div>
+        <p class="note small" id="se-note">${esc(SEASON.name)} 시즌은 <b>${seasonRange()}</b>${SEASON.start > SEASON.end ? ' (해를 넘겨요)' : ''}. 올해 시즌은 <b>${CUR}년 ${esc(SEASON.name)}</b>이고, 시즌 칸에는 ${SEASON_YEARS().join(', ')}년이 보여요.</p>
+      </div>
+    </div>
+    <div class="panel" style="display:grid;gap:14px">
+      <div class="panel-head" style="margin-bottom:0"><div><h2>파는 물건</h2><p class="muted small">주문 적기 화면에 이 순서대로 나와요. 가격을 바꿔도 지난 주문 금액은 그대로예요.</p></div><button class="btn primary" data-act="p-add">물건 추가</button></div>
+      <ul class="plist" id="st-plist">${PRODUCTS.map(p => `
+        <li class="${p.active ? '' : 'off'}">
+          <div><div class="pn">${esc(pname(p))}${p.active ? '' : ' <span class="muted small">(숨김)</span>'}</div>
+            <div class="pm"><span>${won(p.price)} / ${esc(p.unit)}</span>${p.seasonal ? '<span class="pill c-yes">시즌 물건</span>' : '<span class="pill c-unk">연중 판매</span>'}</div></div>
+          <div class="acts"><button class="btn" data-act="p-edit" data-pid="${p.id}">고치기</button><button class="btn" data-act="p-toggle" data-pid="${p.id}">${p.active ? '숨기기' : '다시 팔기'}</button></div>
+        </li>`).join('')}</ul>
+      <p class="muted small">숨긴 물건은 주문 적기에서 안 보이지만 지난 장부에는 남아요. 지금 파는 물건 ${activeProducts().length}가지, 주로 ${esc(U)} 단위로 세요.</p>
+    </div>
+    <p class="note small">시연 화면이라 설정은 새로고침하면 처음으로 돌아가요. 실제 서비스에서는 저장돼요.</p>`;
+};
+function openProductSheet(p){
+  const isNew = !p; const v = p || { name:'', spec:'', unit:mainUnit(), price:'', seasonal:true, active:true };
+  openSheet(`
+    <div class="sheet-top"><h2 id="sheetTitle">${isNew ? '물건 추가' : '물건 고치기'}</h2><button class="x" data-act="close" aria-label="닫기">×</button></div>
+    <div class="two">
+      <div class="field"><label for="pf-name">이름</label><input class="inp" id="pf-name" value="${esc(v.name)}" placeholder="예: 절임배추, 곶감, 사과" autocomplete="off"></div>
+      <div class="field"><label for="pf-spec">규격</label><input class="inp" id="pf-spec" value="${esc(v.spec)}" placeholder="예: 20kg, 5kg, 30과" autocomplete="off"></div>
+    </div>
+    <div class="field"><span class="lab">세는 단위</span><div class="chips unit-chips" id="pf-units">${UNITS.map(u => `<button type="button" class="chip" data-unit="${u}" aria-pressed="${u === v.unit}">${u}</button>`).join('')}</div></div>
+    <div class="field"><label for="pf-price">가격 (원)</label><input class="inp num" id="pf-price" inputmode="numeric" value="${v.price === '' ? '' : v.price}" placeholder="45000" autocomplete="off"></div>
+    <div class="seg" role="radiogroup" aria-label="파는 때">
+      <label><input type="radio" name="pf-seasonal" value="1" ${v.seasonal ? 'checked' : ''}><span>${esc(SEASON.name)} 시즌에 팔아요</span></label>
+      <label><input type="radio" name="pf-seasonal" value="0" ${v.seasonal ? '' : 'checked'}><span>일 년 내내 팔아요</span></label>
+    </div>
+    <p class="muted small">시즌 물건은 안내 문자 초안에 먼저 들어가요.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary big" data-act="p-save" data-pid="${p ? p.id : ''}">${isNew ? '추가하기' : '저장'}</button><button class="btn big" data-act="close">닫기</button></div>`);
+  $('#pf-name').focus();
+}
+function saveProduct(pid){
+  const name = $('#pf-name').value.trim(), spec = $('#pf-spec').value.trim(), price = +digits($('#pf-price').value);
+  const unitBtn = $('#pf-units [aria-pressed="true"]'); const unit = unitBtn ? unitBtn.dataset.unit : mainUnit();
+  const seasonal = ($('#sheet input[name="pf-seasonal"]:checked') || {}).value !== '0';
+  if (!name){ toast('물건 이름을 적어 주세요'); $('#pf-name').focus(); return; }
+  if (!price){ toast('가격을 적어 주세요'); $('#pf-price').focus(); return; }
+  if (pid){ Object.assign(P[pid], { name, spec, unit, price, seasonal }); toast(`${pname(P[pid])}을(를) 고쳤어요`); }
+  else { const np = { id:'p' + (nextPid++), name, spec, unit, price, seasonal, active:true }; PRODUCTS.push(np); P[np.id] = np; toast(`${pname(np)}을(를) 추가했어요`); }
+  closeSheet(); invalidate(); RENDER.settings();
+}
+const vSet = $('#v-settings');
+vSet.addEventListener('input', e => {
+  const t = e.target;
+  if (t.id === 'st-name'){ SHOP.name = t.value.trim() || '우리 가게'; applyShop(); if (!C.edited) C.text = tpl(C.type); }
+  else if (t.id === 'st-phone'){ SHOP.phone = t.value.trim(); if (!C.edited) C.text = tpl(C.type); }
+  else if (t.id === 'st-optout'){ SHOP.optout = t.value.trim(); }
+  else if (t.id === 'se-name'){ SEASON.name = t.value.trim() || '시즌'; invalidate(); const nt = $('#se-note'); if (nt) nt.innerHTML = `${esc(SEASON.name)} 시즌은 <b>${seasonRange()}</b>${SEASON.start > SEASON.end ? ' (해를 넘겨요)' : ''}. 올해 시즌은 <b>${CUR}년 ${esc(SEASON.name)}</b>이고, 시즌 칸에는 ${SEASON_YEARS().join(', ')}년이 보여요.`; }
+});
+vSet.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'se-start' || t.id === 'se-end'){ SEASON.start = +$('#se-start').value; SEASON.end = +$('#se-end').value; invalidate(); RENDER.settings(); toast(`${SEASON.name} 시즌을 ${seasonRange()}로 바꿨어요. 손님 묶음과 장부 필터도 따라 바뀌어요`); }
+});
+vSet.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const a = b.dataset.act;
+  if (a === 'p-add') openProductSheet(null);
+  else if (a === 'p-edit') openProductSheet(P[b.dataset.pid]);
+  else if (a === 'p-toggle'){ const p = P[b.dataset.pid]; if (p.active && activeProducts().length <= 1){ toast('파는 물건이 하나는 있어야 해요'); return; } p.active = !p.active; invalidate(); RENDER.settings(); toast(p.active ? `${pname(p)}을(를) 다시 팔아요` : `${pname(p)}을(를) 숨겼어요. 지난 장부에는 남아요`); }
+});
+$('#sheet').addEventListener('click', e => {
+  const u = e.target.closest('[data-unit]'); if (u){ document.querySelectorAll('#pf-units .chip').forEach(c => c.setAttribute('aria-pressed', c === u ? 'true' : 'false')); return; }
+  const b = e.target.closest('[data-act="p-save"]'); if (b) saveProduct(b.dataset.pid || null);
+});
+$('#sheet').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'pf-price'){ e.preventDefault(); const b = $('#sheet [data-act="p-save"]'); if (b) saveProduct(b.dataset.pid || null); } });
+
 /* ================= 시작 ================= */
+recalcCur(); applyShop();
 const start = (location.hash || '').replace('#', '');
 go(VIEWS.includes(start) ? start : 'home');
 })();
